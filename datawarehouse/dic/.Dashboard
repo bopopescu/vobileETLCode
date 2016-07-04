@@ -1,0 +1,944 @@
+ISPDailyInfringing
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+isp_id	mediumint	NO		NULL		
+isp_name	varchar	NO		NULL		
+country_id	smallint	NO		NULL		
+download_num	int	NO		NULL		
+total_duration	bigint	NO		0		
+report_at	date	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+P2PClientControl
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+P2PClientControl_ID	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO		NULL		
+company_name	varchar	NO		NULL		
+rawResult_table_name	varchar	NO		NULL		
+server_name	varchar	YES		NULL		
+db_name	varchar	YES		NULL		
+user_name	varchar	NO		NULL		
+password	varchar	YES		NULL		
+processing_priority	tinyint	NO		NULL		
+protocol	enum	NO		NULL		
+routing_type	enum	NO		NULL		
+is_syncToWeb	enum	YES		true		
+
+archived_metaCountryConsumptionDailyReport_2012
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingMeta_id	int	NO		NULL		
+country_id	smallint	NO		NULL		
+report_at	date	YES	MUL	NULL		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+ugc_net_view_num	bigint	NO		0		
+cyberlocker_net_download_num	bigint	NO		0		
+hybrid_net_download_view_num	bigint	NO		0		
+p2p_net_download_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+archived_metaCountryConsumptionDailyReport_2013
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingMeta_id	int	NO		NULL		
+country_id	smallint	NO		NULL		
+report_at	date	YES	MUL	NULL		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+ugc_net_view_num	bigint	NO		0		
+cyberlocker_net_download_num	bigint	NO		0		
+hybrid_net_download_view_num	bigint	NO		0		
+p2p_net_download_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+archived_metaCountryConsumptionDailyReport_2014
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingMeta_id	int	NO		NULL		
+country_id	smallint	NO		NULL		
+report_at	date	YES	MUL	NULL		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+ugc_net_view_num	bigint	NO		0		
+cyberlocker_net_download_num	bigint	NO		0		
+hybrid_net_download_view_num	bigint	NO		0		
+p2p_net_download_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+archived_metaCountryConsumptionDailyReport_2015
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingMeta_id	int	NO		NULL		
+country_id	smallint	NO		NULL		
+report_at	date	YES	MUL	NULL		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+ugc_net_view_num	bigint	NO		0		
+cyberlocker_net_download_num	bigint	NO		0		
+hybrid_net_download_view_num	bigint	NO		0		
+p2p_net_download_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+archived_metaCountryConsumptionDailyReport_2016
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingMeta_id	int	NO		NULL		
+country_id	smallint	NO		NULL		
+report_at	date	YES	MUL	NULL		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+ugc_net_view_num	bigint	NO		0		
+cyberlocker_net_download_num	bigint	NO		0		
+hybrid_net_download_view_num	bigint	NO		0		
+p2p_net_download_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+archived_metaCountryConsumptionDailyReport_2017
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingMeta_id	int	NO		NULL		
+country_id	smallint	NO		NULL		
+report_at	date	YES	MUL	NULL		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+ugc_net_view_num	bigint	NO		0		
+cyberlocker_net_download_num	bigint	NO		0		
+hybrid_net_download_view_num	bigint	NO		0		
+p2p_net_download_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+archived_metaCountryConsumptionDailyReport_2018
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingMeta_id	int	NO		NULL		
+country_id	smallint	NO		NULL		
+report_at	date	YES	MUL	NULL		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+ugc_net_view_num	bigint	NO		0		
+cyberlocker_net_download_num	bigint	NO		0		
+hybrid_net_download_view_num	bigint	NO		0		
+p2p_net_download_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+archived_metaCountryConsumptionDailyReport_2019
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingMeta_id	int	NO		NULL		
+country_id	smallint	NO		NULL		
+report_at	date	YES	MUL	NULL		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+ugc_net_view_num	bigint	NO		0		
+cyberlocker_net_download_num	bigint	NO		0		
+hybrid_net_download_view_num	bigint	NO		0		
+p2p_net_download_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+archived_metaCountryConsumptionDailyReport_2020
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingMeta_id	int	NO		NULL		
+country_id	smallint	NO		NULL		
+report_at	date	YES	MUL	NULL		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+ugc_net_view_num	bigint	NO		0		
+cyberlocker_net_download_num	bigint	NO		0		
+hybrid_net_download_view_num	bigint	NO		0		
+p2p_net_download_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+bak_dailySiteViewsBasic_20150723
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO		0		
+trackingWebsite_id	mediumint	NO		NULL		
+cr	float	NO		0		
+us_percent_of_visitor	float	NO		0		
+pageview_percentage	char	YES		0.0000000%	pageviews percentage from  Alexa	
+daily_global_pageview	bigint	NO		0	Daily Global Pageviews from Alexa	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+
+bak_videoMetaDetailReport_20150723
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingMeta_id	int	NO		NULL		
+report_at	date	YES	MUL	NULL		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+ugc_daily_view_num	bigint	NO		0		
+cyberlocker_daily_download_num	bigint	NO		0		
+hybrid_daily_download_view_num	bigint	NO		0		
+p2p_daily_download_num	bigint	NO		0		
+us_ugc_cumulative_view_num	bigint	NO		0		
+us_cyberlocker_cumulative_download_num	bigint	NO		0		
+us_hybrid_cumulative_download_view_num	bigint	NO		0		
+us_ugc_daily_view_num	bigint	NO		0		
+us_cyberlocker_daily_download_num	bigint	NO		0		
+us_hybrid_daily_download_view_num	bigint	NO		0		
+us_p2p_daily_download_num	bigint	NO		0		
+us_p2p_cumulative_download_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+bak_videoSiteDetailReport_20150723
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingWebsite_id	int	NO		NULL		
+report_at	date	YES	MUL	NULL		
+cumulative_view_num	bigint	NO		0		
+daily_view_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+companySiteTypeMatchLastYearReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+website_type	enum	NO		ugc		
+match_num	int	NO		0		
+total_duration	bigint	NO		0		
+report_at	date	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+companySiteTypeMatchLastYearReportHis
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+website_type	enum	NO		ugc		
+match_num	int	NO		0		
+report_at	date	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+complianceRateEachSiteType
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingWebsite_id	smallint	NO		NULL		
+website_type	enum	YES		NULL		
+date_range	enum	YES		NULL		
+notice_send_num	int	NO		NULL		
+notice_send_removed_num	int	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+complianceRateLast5Month
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+report_month	date	YES		NULL		
+notice_send_num	int	NO		NULL		
+notice_send_removed_num	int	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+country
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	smallint	NO	PRI	NULL		auto_increment
+country_code	char	NO	UNI	NULL	china cn,JAPAN jp	
+country_name	varchar	NO		NULL		
+national_flag	varchar	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+country_area	text	YES		NULL		
+
+countryDailyInfringing
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+country_id	smallint	NO		NULL		
+country_name	varchar	NO		NULL		
+download_num	int	NO		NULL		
+total_duration	bigint	NO		0		
+report_at	date	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+dailySiteViewsBasic
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+trackingWebsite_id	mediumint	NO	UNI	NULL		
+cr	float	NO		0		
+us_percent_of_visitor	float	NO		0		
+pageview_percentage	char	YES		0.0000000%	pageviews percentage from  Alexa	
+daily_global_pageview	bigint	NO		0	Daily Global Pageviews from Alexa	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+dailyViewsBasicSample
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+company_id	smallint	NO	PRI	NULL	reference to id of company table	
+trackingWebsite_id	mediumint	NO	PRI	NULL		
+daily_view_num	bigint	NO		0		
+cumulative_match_num	mediumint	NO		0		
+estimated_percentage	mediumint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+dailyViewsBasicSample_1
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+company_id	smallint	NO	PRI	NULL	reference to id of company table	
+trackingWebsite_id	mediumint	NO	PRI	NULL		
+daily_view_num	bigint	NO		0		
+cumulative_match_num	mediumint	NO		0		
+estimated_percentage	mediumint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+finishedControl
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO		NULL	reference to id of company table	
+model_name	varchar	NO		NULL		
+run_at	date	NO		0000-00-00		
+start_at	timestamp	NO		0000-00-00 00:00:00		
+finished_at	timestamp	NO		0000-00-00 00:00:00		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+firstCountryDownloadReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+meta_id	int	NO	MUL	NULL		
+country_id	smallint	NO		NULL		
+download_num	int	NO		NULL		
+total_duration	bigint	NO		0		
+report_at	date	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+infringingSiteReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingWebsite_id	smallint	NO		NULL		
+display_name	varchar	NO		NULL	website display name on web application	
+website_type	enum	YES		NULL		
+date_range	enum	YES		NULL		
+data_type	enum	YES		match_num		
+match_num	bigint	NO		NULL	view count	
+total_duration	int	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+linkingSiteMatchReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+linking_site_domain	varchar	NO		NULL		
+website_type	enum	YES		NULL		
+date_range	enum	YES		NULL		
+infringing_num	int	NO		NULL		
+total_duration	int	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+matchedVideoViewCompletion
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+matchedVideo_id	int	NO	PRI	NULL		
+trackingWebsite_id	int	NO	MUL	NULL		
+trackingMeta_id	int	NO	MUL	NULL		
+company_id	smallint	NO		NULL		
+report_at	date	NO	PRI	NULL		
+view_count	int	YES		NULL		
+
+matchedVideoViewCountCompletion
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+matchedVideo_id	int	NO	PRI	NULL		
+trackingWebsite_id	int	NO	MUL	NULL		
+trackingMeta_id	int	NO	MUL	NULL		
+company_id	smallint	NO		NULL		
+report_at	date	NO	PRI	NULL		
+view_count	int	YES		NULL		
+
+matchedVideoViewCountHis
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+matchedVideo_id	int	NO	PRI	NULL		
+trackingWebsite_id	int	NO		NULL		
+trackingMeta_id	int	NO	MUL	NULL		
+company_id	smallint	NO		NULL		
+report_at	date	NO	PRI	NULL		
+view_count	int	YES		NULL		
+
+matchedVideoViewCountHis_1
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+matchedVideo_id	int	NO	PRI	NULL		
+trackingWebsite_id	int	NO	MUL	NULL		
+trackingMeta_id	int	NO	MUL	NULL		
+company_id	smallint	NO		NULL		
+report_at	date	NO	PRI	NULL		
+view_count	int	YES		NULL		
+
+matchedVideoViewCountHis_2
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+matchedVideo_id	int	NO	PRI	NULL		
+trackingWebsite_id	int	NO	MUL	NULL		
+trackingMeta_id	int	NO	MUL	NULL		
+company_id	smallint	NO		NULL		
+report_at	date	NO	PRI	NULL		
+view_count	int	YES		NULL		
+
+matchedVideoViewCountHis_3
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+matchedVideo_id	int	NO	PRI	NULL		
+trackingWebsite_id	int	NO	MUL	NULL		
+trackingMeta_id	int	NO	MUL	NULL		
+company_id	smallint	NO		NULL		
+report_at	date	NO	PRI	NULL		
+view_count	int	YES		NULL		
+
+metaCountryConsumptionDailyReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingMeta_id	int	NO		NULL		
+country_id	smallint	NO		NULL		
+report_at	date	YES	MUL	NULL		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+ugc_net_view_num	bigint	NO		0		
+cyberlocker_net_download_num	bigint	NO		0		
+hybrid_net_download_view_num	bigint	NO		0		
+p2p_net_download_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+metaCountryConsumptionMonthlyReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingMeta_id	int	NO		NULL		
+country_id	smallint	NO		NULL		
+report_at	int	NO	MUL	NULL		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+ugc_net_view_num	bigint	NO		0		
+cyberlocker_net_download_num	bigint	NO		0		
+hybrid_net_download_view_num	bigint	NO		0		
+p2p_net_download_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+metaDownloadAfterRelease
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO		NULL		
+meta_id	int	NO	MUL	NULL		
+meta_title	varchar	NO		NULL		
+meta_type	enum	YES		NULL		
+release_date	date	YES		NULL		
+date_num	tinyint	NO		0		
+download_num	int	NO		NULL		
+ugc_num	int	NO		NULL		
+cyberlocker_num	int	NO		NULL		
+hybrid_num	int	NO		NULL		
+ugc_duration	int	NO		0		
+cyberlocker_duration	int	NO		0		
+hybrid_duration	int	NO		0		
+p2p_duration	int	NO		0		
+report_at	date	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+metaDownloadAfterReleaseControl
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO		NULL		
+meta_id	int	NO	UNI	NULL		
+release_date	date	YES		NULL		
+last_report_at	date	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+metaDownloadLastMonthReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO		NULL		
+meta_id	int	NO	UNI	NULL		
+download_num	int	NO		NULL		
+total_duration	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+metaExtraInfo
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+meta_id	mediumint	NO	UNI	NULL		
+company_id	smallint	NO		NULL		
+display_name	varchar	NO		NULL		
+poster	varchar	YES		default.png		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+metaPopularity
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+trackingMeta_id	int	NO	MUL	NULL	meta id	
+meta_uuid	char	NO		NULL		
+tracker_id	int	NO	MUL	NULL	tracker.id	
+meta_download_num	int	NO		NULL	meta downloading of the tracker on the date	
+tracker_download_num	bigint	NO		NULL	total downloading of the tracker on the date	
+track_date	date	NO	MUL	NULL	track date, once per day	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+metaTitleCountryConsumptionMonthlyReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+meta_title	varchar	NO		NULL		
+country_id	smallint	NO		NULL		
+report_at	int	NO	MUL	NULL		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+ugc_net_view_num	bigint	NO		0		
+cyberlocker_net_download_num	bigint	NO		0		
+hybrid_net_download_view_num	bigint	NO		0		
+p2p_net_download_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+metaTypeCountryConsumptionMonthlyReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+meta_type	enum	NO		Movie		
+country_id	smallint	NO		NULL		
+report_at	int	NO	MUL	NULL		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+ugc_net_view_num	bigint	NO		0		
+cyberlocker_net_download_num	bigint	NO		0		
+hybrid_net_download_view_num	bigint	NO		0		
+p2p_net_download_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+p2pdailyinfo
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+trackingMetaId	int	YES		NULL		
+reportAt	date	YES		NULL		
+dailyDownloadNum	int	YES		NULL		
+
+piratedDownloadViewNumReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+meta_id	mediumint	NO	MUL	NULL		
+company_id	smallint	NO	MUL	NULL		
+date_num	tinyint	NO		NULL		
+view_num	int	NO		NULL		
+download_num	int	NO		NULL		
+report_at	date	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+piratedFoundDateReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+meta_id	mediumint	NO	MUL	NULL		
+company_id	smallint	NO	MUL	NULL		
+display_name	varchar	NO		NULL		
+website_type	enum	YES		NULL		
+report_at	date	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+piratedInfringingTotalNumReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+meta_id	int	NO	MUL	NULL		
+notice_send_removed_num	int	NO		NULL		
+notice_send_not_removed_num	int	NO		NULL		
+website_type	enum	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+piratedMatchNumReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+meta_id	mediumint	NO	MUL	NULL		
+company_id	smallint	NO	MUL	NULL		
+website_type	enum	YES		NULL		
+match_num	int	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+piratedVideoTitleReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+meta_id	int	NO	MUL	NULL		
+meta_title	varchar	NO	MUL	NULL		
+meta_type	enum	YES		NULL		
+view_num	bigint	NO		0		
+download_num	bigint	NO		0		
+total_duration	bigint	NO		0		
+report_at	date	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+piratedVideoTitleReportHis
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO		0		
+company_id	smallint	NO		NULL		
+meta_id	int	NO		NULL		
+meta_title	varchar	NO		NULL		
+meta_type	enum	YES		NULL		
+view_num	bigint	NO		0		
+download_num	bigint	NO		0		
+report_at	date	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+
+processControl
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL	reference to id of company table	
+model_name	varchar	NO		NULL		
+status	enum	NO		new		
+run_at	date	NO		0000-00-00		
+start_at	timestamp	NO		0000-00-00 00:00:00		
+finished_at	timestamp	NO		0000-00-00 00:00:00		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+recentDownloadNumReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+download_num	int	NO		NULL		
+total_duration	bigint	NO		0		
+report_at	date	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+regionDailyInfringing
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+country_id	smallint	NO		NULL		
+region_name	varchar	NO		NULL		
+download_num	int	NO		NULL		
+total_duration	bigint	NO		0		
+report_at	date	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+siteCountryBasicItem
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+dailySiteViewsBasic_id	mediumint	NO	PRI	NULL		
+country_id	smallint	NO	PRI	0		
+percent_of_visitor	float	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+takedownNoticeSentSiteTypeReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+website_type	enum	YES		NULL		
+notice_count	bigint	NO		NULL		
+report_at	date	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+titlePiracyPropagationReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+meta_id	int	NO	MUL	NULL		
+country_id	smallint	NO		NULL		
+first_found_at	date	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+topLinkingSiteLast5DayReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+linking_site_domain	varchar	NO		NULL		
+date_range	enum	YES		NULL		
+data_type	enum	YES		match_num		
+infringing_num	int	NO		NULL		
+total_duration	int	NO		0		
+report_at	date	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+topPiratedMovieTitleReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+meta_id	int	NO	MUL	NULL		
+meta_title	varchar	NO		NULL		
+data_type	enum	YES		view_download		
+total_num	bigint	NO		0		
+date_range	enum	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+topPiratedTVTitleReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+meta_title	varchar	NO	MUL	NULL		
+data_type	enum	YES		view_download		
+total_num	bigint	NO		0		
+date_range	enum	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+topVideoByTVLast5DayDetailReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+data_type	enum	NO		all_tv		
+tv_series_title	varchar	NO		NULL		
+season_number	smallint	YES		NULL	customer provide season number for TV serials	
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+report_at	date	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+topVideoLast5DayViewReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+report_at	date	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+topVideoListLast5DayDetailReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+data_type	enum	YES		all_tracking_list		
+trackingList_id	int	NO		0		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+report_at	date	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+trackingList
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	YES		NULL		
+name	varchar	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+userHomepageSetting
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	smallint	NO	PRI	NULL		auto_increment
+user_id	smallint	NO	UNI	NULL		
+company_id	smallint	YES		NULL		
+type_setting	enum	NO		tracking_list		
+list_type	enum	YES		all_tracking_list		
+trackingList_id	int	YES		NULL		
+tv_series_title	varchar	YES		NULL		
+tv_type	enum	NO		all_tv		
+tv_season_number	smallint	YES		NULL	customer provide season number for TV serials	
+usNonUs_meta_id	varchar	YES		NULL		
+usNonUs_trackingList_id	int	YES		NULL		
+weight_title	varchar	YES		NULL	title info for user to update	
+piracy_propagation_meta_id	mediumint	NO		NULL	meta_id in chart7	
+new_pirated_meta_id	mediumint	YES		NULL	meta_id in chart8	
+big_area	varchar	YES		NULL		
+small_area	varchar	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+vdashboardCrCoefficient
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+website_type	enum	YES		NULL		
+cr	double	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+videoListSiteTypeDailyDetailReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+data_type	enum	NO		all_tracking_list		
+trackingList_id	int	NO		0		
+report_at	date	YES		NULL		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+us_ugc_cumulative_view_num	bigint	NO		0		
+us_cyberlocker_cumulative_download_num	bigint	NO		0		
+us_hybrid_cumulative_download_view_num	bigint	NO		0		
+us_p2p_cumulative_download_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+videoListSiteTypeDetailReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+data_type	enum	NO		all_tracking_list		
+trackingList_id	int	NO		0		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+us_ugc_cumulative_view_num	bigint	NO		0		
+us_cyberlocker_cumulative_download_num	bigint	NO		0		
+us_hybrid_cumulative_download_view_num	bigint	NO		0		
+us_p2p_cumulative_download_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+videoMetaDetailReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingMeta_id	int	NO		NULL		
+report_at	date	YES	MUL	NULL		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+ugc_daily_view_num	bigint	NO		0		
+cyberlocker_daily_download_num	bigint	NO		0		
+hybrid_daily_download_view_num	bigint	NO		0		
+p2p_daily_download_num	bigint	NO		0		
+us_ugc_cumulative_view_num	bigint	NO		0		
+us_cyberlocker_cumulative_download_num	bigint	NO		0		
+us_hybrid_cumulative_download_view_num	bigint	NO		0		
+us_ugc_daily_view_num	bigint	NO		0		
+us_cyberlocker_daily_download_num	bigint	NO		0		
+us_hybrid_daily_download_view_num	bigint	NO		0		
+us_p2p_daily_download_num	bigint	NO		0		
+us_p2p_cumulative_download_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+videoSiteDetailReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingWebsite_id	int	NO		NULL		
+report_at	date	YES	MUL	NULL		
+cumulative_view_num	bigint	NO		0		
+daily_view_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+videoSiteTypeDailyReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+report_at	date	YES		NULL		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+videoTVSiteTypeDailyDetailReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+data_type	enum	NO		all_tv		
+tv_series_title	varchar	NO		NULL		
+season_number	smallint	YES		NULL	customer provide season number for TV serials	
+report_at	date	YES		NULL		
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+us_ugc_cumulative_view_num	bigint	NO		0		
+us_cyberlocker_cumulative_download_num	bigint	NO		0		
+us_hybrid_cumulative_download_view_num	bigint	NO		0		
+us_p2p_cumulative_download_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+videoTVSiteTypeDetailReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+data_type	enum	NO		all_tv		
+tv_series_title	varchar	NO		NULL		
+season_number	smallint	YES		NULL	customer provide season number for TV serials	
+ugc_cumulative_view_num	bigint	NO		0		
+cyberlocker_cumulative_download_num	bigint	NO		0		
+hybrid_cumulative_download_view_num	bigint	NO		0		
+p2p_cumulative_download_num	bigint	NO		0		
+us_ugc_cumulative_view_num	bigint	NO		0		
+us_cyberlocker_cumulative_download_num	bigint	NO		0		
+us_hybrid_cumulative_download_view_num	bigint	NO		0		
+us_p2p_cumulative_download_num	bigint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+

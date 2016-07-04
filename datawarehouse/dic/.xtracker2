@@ -1,0 +1,3624 @@
+TVSeries
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+subCompany_id	smallint	NO		NULL		
+user_id	smallint	NO		NULL		
+meta_title	varchar	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+acc_rule
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+acc_rule_set_id	int	NO	MUL	NULL		
+ori_expression	varchar	YES		NULL		
+conv_expression	varchar	YES		NULL		
+action	varchar	NO		NULL		
+
+acc_rule_group
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	NO		NULL		
+group_type	enum	NO		classification		
+name	varchar	NO		NULL		
+delete_flag	tinyint	NO		0		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+acc_rule_set
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+acc_rule_group_id	int	NO	MUL	NULL		
+acc_rule_queue	varchar	YES		NULL		
+delete_flag	tinyint	YES		0		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+acc_rule_set_site
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+acc_rule_set_id	int	NO	MUL	NULL		
+tracking_website_id	int	NO		NULL		
+tracking_website_type	enum	NO		default		
+
+activity_log
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+log_type	tinyint	YES		NULL		
+module	varchar	YES		NULL		
+operation	varchar	YES		NULL		
+ip	varchar	YES		NULL		
+session_id	varchar	YES		NULL		
+description	text	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+results	varchar	YES		NULL		
+tracking_website_id	int	YES		NULL		
+
+alertNotice
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO		NULL		
+meta_id	int	NO	MUL	NULL	meta id only those meta has alertRule_id will send alert	
+tracking_website_id	int	NO		0		
+notice_send_count	int	NO		NULL		
+created_by	smallint	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+alertNoticeItem
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO		NULL		
+alertNotice_id	int	NO	MUL	NULL	which alertNotice this item belong to	
+matchedVideo_id	int	NO		NULL	need send alert matchedVideo	
+notice_send_status	enum	NO		first	one meta's first match record as first alert	
+alertNoticeMailDetail_id	int	YES		NULL	those clips are sent then record alertNoticeMailDetail_id,记录这个clips发送的alert邮件信息	
+created_by	int	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+sent_by	smallint	NO		NULL		
+sent_at	timestamp	NO		0000-00-00 00:00:00		
+
+alertNoticeMailDetail
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+alertNotice_id	int	NO		NULL	reference to alerNoticeItem id	
+subject	varchar	NO		NULL	takedown notice email subject	
+to_email	varchar	YES		NULL	email address which takedown email send to	
+cc_email	varchar	YES		NULL		
+bcc_email	varchar	YES		NULL		
+reply_to_email	varchar	YES		NULL		
+content	mediumtext	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+
+alertRule
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	YES		NULL		
+alert_name	varchar	YES		NULL		
+alert_frequency	enum	YES		only once	customer can choose alert send frequency if new url are found ,then those urls will be sent to customer	
+alert_max_num	int	NO		255		
+to_mail_address	varchar	YES		NULL	customer can select email address from cardInfor or write email address	
+cc_mail_address	varchar	YES		NULL		
+bcc_mail_address	varchar	YES		NULL		
+accRuleGroup_id	int	YES		NULL	refer to accRuleGroup table	
+created_by	int	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	int	YES		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+applyAccRuleTask
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO		NULL		
+content_rule_id	int	NO		NULL		
+trackingMeta_id	mediumint	NO		0		
+task_status	enum	NO	MUL	created		
+created_by	smallint	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	NO		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+applyConfirmPendingRule
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingWebsite_id	int	NO		NULL		
+created_by	smallint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+archCompanyCtl
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+company_id	smallint	NO	PRI	NULL		
+status	smallint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+archCompanyMetaReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingMeta_id	int	NO		NULL		
+match_num	int	NO		NULL		
+view_num	bigint	NO		NULL		
+removed_match_num	int	NO		NULL		
+active_match_num	int	NO		NULL		
+infring_num	int	NO		NULL		
+total_clip_duration	bigint	NO		NULL		
+takedown_match_num	int	NO		NULL		
+takedown_view_num	bigint	NO		NULL		
+takedown_infring_num	int	NO		NULL		
+takedown_infring_view_num	bigint	NO		NULL		
+takedown_removed_num	int	NO		NULL		
+takedown_total_clip_duration	int	NO		NULL		
+whitelist_match_num	int	NO		NULL		
+whitelist_view_num	bigint	NO		NULL		
+whitelist_total_clip_duration	int	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+archCompanySiteClassificationReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingWebsite_id	smallint	NO		NULL		
+hide_flag	smallint	NO		NULL		
+match_num	int	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+archCompanySiteReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+subCompany_id	smallint	NO		0		
+trackingWebsite_id	smallint	NO		NULL		
+match_num	int	NO		NULL		
+view_num	bigint	NO		NULL		
+infring_num	int	NO		NULL		
+removed_num	int	NO		NULL		
+unfiltered_num	int	NO		NULL		
+total_clip_duration	bigint	NO		NULL		
+takedown_match_num	int	NO		NULL		
+takedown_view_num	bigint	NO		NULL		
+takedown_infring_num	int	NO		NULL		
+takedown_infring_view_num	bigint	NO		NULL		
+takedown_removed_num	int	NO		NULL		
+takedown_total_clip_duration	bigint	NO		0		
+takedown_total_takeoff_response_time	bigint	NO		0		
+takedown_total_takeoff_num	int	NO		NULL		
+whitelist_match_num	int	NO		NULL		
+whitelist_view_num	bigint	NO		NULL		
+whitelist_total_clip_duration	int	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+archCompanySiteSummaryReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingWebsite_id	smallint	NO		NULL		
+meta_type	enum	YES		NULL		
+report_at	date	NO		NULL		
+found_at_cumulative_match_num	int	NO		0		
+found_at_cumulative_view_count	bigint	NO		0		
+found_at_infring_match_num	int	NO		0		
+found_at_infring_view_count	bigint	NO		0		
+found_at_total_takeoff_response_time	bigint	NO		0		
+found_at_total_takeoff_num	int	NO		0		
+found_at_total_notice_num	int	NO		0		
+post_at_cumulative_match_num	int	NO		0		
+post_at_cumulative_view_count	bigint	NO		0		
+post_at_infring_match_num	int	NO		0		
+post_at_infring_view_count	bigint	NO		0		
+post_at_total_takeoff_response_time	bigint	NO		0		
+post_at_total_takeoff_num	int	NO		0		
+post_at_total_notice_num	int	NO		0		
+sent_at_takedown_match_num	int	NO		0		
+remove_at_removed_num	int	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+archMetaSiteClassificationReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+trackingMeta_id	int	NO	MUL	NULL		
+company_id	smallint	NO		NULL		
+trackingWebsite_id	smallint	NO		NULL		
+hide_flag	smallint	NO		NULL		
+match_num	int	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+archMetaSiteReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+trackingMeta_id	int	NO	MUL	NULL		
+trackingWebsite_id	smallint	NO		NULL		
+company_id	smallint	NO		NULL		
+match_num	int	NO		NULL		
+actived_num	int	NO		NULL		
+infring_num	int	NO		NULL		
+infring_removed_num	int	NO		NULL		
+infring_view_num	bigint	NO		NULL		
+view_num	bigint	NO		NULL		
+match_duration	bigint	NO		NULL		
+last_match_at	timestamp	NO		0000-00-00 00:00:00		
+takedown_match_num	int	NO		NULL		
+removed_num	int	NO		NULL		
+pending_review_num	int	NO		NULL		
+takedown_view_num	bigint	NO		NULL		
+takedown_infring_num	int	NO		NULL		
+takedown_infring_view_num	bigint	NO		NULL		
+takedown_removed_num	int	NO		NULL		
+takedown_total_clip_duration	int	NO		NULL		
+takedown_total_takeoff_response_time	bigint	NO		0		
+takedown_total_takeoff_num	int	NO		NULL		
+whitelist_match_num	int	NO		NULL		
+whitelist_view_num	bigint	NO		NULL		
+whitelist_total_clip_duration	int	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+archRunstat
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+table_name	varchar	NO		NULL		
+status	enum	NO	MUL	new		
+activated_at	timestamp	NO		0000-00-00 00:00:00		
+start_at	timestamp	NO		0000-00-00 00:00:00		
+stop_at	timestamp	NO		0000-00-00 00:00:00		
+archive_date	date	NO		0000-00-00		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+autoConfirmRule
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	YES		NULL		
+movie_flag	enum	YES		NULL		
+music_flag	enum	YES		NULL		
+tv_flag	enum	YES		NULL		
+rule_expression	varchar	YES		NULL		
+confirm_flag	tinyint	YES		NULL		
+confirm_priority	enum	YES		before		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+rule_type	enum	YES		Both		
+order_num	int	YES		NULL		
+
+autoTakedownByURLInterface
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	YES	MUL	NULL		
+tracking_website_id	int	YES		NULL		
+auto_takedown_enabled	tinyint	NO		0		
+emailTemplateGroup_id	int	YES		NULL		
+submit_interval	int	YES		NULL		
+username	varchar	YES		NULL		
+password	varchar	YES		NULL		
+last_send_time	datetime	YES		NULL		
+last_send_time_redlist	datetime	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+is_deleted	enum	YES		false		
+
+bak_takedownNoticeItem_20141211
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	mediumint	NO		0		
+parent_id	int	NO		0		
+company_id	smallint	NO		NULL		
+takedownNotice_id	mediumint	NO		NULL	reference to takedown notice table	
+matchedVideo_id	int	NO		NULL	reference to matchedVideo table	
+is_stop_resending	enum	NO		false		
+notice_send_count	int	NO		1		
+created_by	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	YES		NULL		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+is_snapshot_generated	enum	NO		false	is exist webshot	
+
+bak_takedownNoticeItem_rt26718_20141215
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	mediumint	NO		0		
+parent_id	int	NO		0		
+company_id	smallint	NO		NULL		
+takedownNotice_id	mediumint	NO		NULL	reference to takedown notice table	
+matchedVideo_id	int	NO		NULL	reference to matchedVideo table	
+is_stop_resending	enum	NO		false		
+notice_send_count	int	NO		1		
+created_by	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	YES		NULL		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+is_snapshot_generated	enum	NO		false	is exist webshot	
+
+bak_takedownNoticeMailDetail_20141211
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+takedownNotice_id	mediumint	NO		NULL	reference to takedownNotice id	
+subject	varchar	NO		NULL	takedown notice email subject	
+to_email	varchar	YES		NULL	email address which takedown email send to	
+cc_email	varchar	YES		NULL		
+bcc_email	varchar	YES		NULL		
+reply_to_email	varchar	YES		NULL		
+content	mediumtext	YES		NULL		
+
+bak_takedownNoticeMailDetail_rt26718_20141215
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+takedownNotice_id	mediumint	NO		NULL	reference to takedownNotice id	
+subject	varchar	NO		NULL	takedown notice email subject	
+to_email	varchar	YES		NULL	email address which takedown email send to	
+cc_email	varchar	YES		NULL		
+bcc_email	varchar	YES		NULL		
+reply_to_email	varchar	YES		NULL		
+content	mediumtext	YES		NULL		
+
+bak_takedownNotice_20141211
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	mediumint	NO		0		
+group_id	mediumint	YES		NULL		
+company_id	smallint	NO		NULL	takedown sent belong to which company	
+subAccount_id	smallint	NO		0		
+trackingWebsite_id	int	NO		0		
+isp_id	smallint	NO		-1		
+notice_status	enum	YES		NULL		
+emailTemplate_id	smallint	NO		NULL		
+mailList_id	smallint	NO		NULL		
+created_by	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+send_by	smallint	YES		NULL	reference to user table id	
+send_at	timestamp	NO		0000-00-00 00:00:00		
+notice_uuid	char	YES		NULL	uuid generated when mail sent	
+
+bak_takedownNotice_rt26718_20141215
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	mediumint	NO		0		
+group_id	mediumint	YES		NULL		
+company_id	smallint	NO		NULL	takedown sent belong to which company	
+subAccount_id	smallint	NO		0		
+trackingWebsite_id	int	NO		0		
+isp_id	smallint	NO		-1		
+notice_status	enum	YES		NULL		
+emailTemplate_id	smallint	NO		NULL		
+mailList_id	smallint	NO		NULL		
+created_by	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+send_by	smallint	YES		NULL	reference to user table id	
+send_at	timestamp	NO		0000-00-00 00:00:00		
+notice_uuid	char	YES		NULL	uuid generated when mail sent	
+
+bak_tracking_meta_setting_RT30725_20150916
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+tracking_meta_id	int	NO		NULL		
+company_id	int	NO		NULL		
+tracking_website_id	int	NO		NULL		
+mailing_list_id	int	YES		NULL		
+email_template_id	int	YES		NULL		
+emailTemplateGroup_id	int	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+cardinfo
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+parent_cardinfo_id	int	NO		0		
+company_id	int	YES		NULL		
+tracking_website_id	int	NO		0		
+isp_id	smallint	NO		-1		
+email_status	enum	NO		blank		
+last_name	varchar	YES		NULL		
+first_name	varchar	YES		NULL		
+email	varchar	YES		NULL		
+company	varchar	YES		NULL		
+department	varchar	YES		NULL		
+title	varchar	YES		NULL		
+office_phone	varchar	YES		NULL		
+cell_phone	varchar	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+cl_request
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	YES	MUL	NULL		
+tracking_relation_id	int	YES		NULL		
+collection_uuid	char	YES	MUL	NULL		
+process_status	tinyint	YES		NULL	0: new request, 1: in process 2: completed 3: failed	
+status_desc	varchar	YES		NULL		
+delete_flag	tinyint	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+cl_request_finished
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	YES		NULL		
+tracking_relation_id	int	YES		NULL		
+process_status	tinyint	YES		NULL	0: new request, 1: in process 2: completed 3: failed	
+status_desc	varchar	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+classification_rule
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	NO		NULL		
+rule_name	varchar	YES		NULL		
+delete_flag	tinyint	YES		0		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+classification_rule_action
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+classification_rule_id	int	NO	PRI	NULL		auto_increment
+action_id	int	NO	PRI	NULL	1: Add to take-down list 2:Classify as Hold for review 3:Classify as No action	
+condition_expression	varchar	YES		NULL		
+clip_duration_rule_id	tinyint	YES		NULL		
+clip_duration_value	int	YES		NULL		
+match_duration_rule_id	tinyint	YES		NULL		
+match_duration_value	int	YES		NULL		
+match_duration_type	tinyint	YES		0		
+match_percentage_rule_id	tinyint	YES		NULL		
+match_percentage_value	tinyint	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+classify_as_infringing_flag	tinyint	YES		0		
+
+classification_rule_action_website
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+classification_rule_id	int	NO	PRI	NULL		auto_increment
+action_id	int	NO	PRI	NULL		
+tracking_website_id	int	NO	PRI	NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+commonTaskExtraInfo
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+task_id	int	NO	UNI	NULL		
+biz_data	mediumtext	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+commonTaskLog
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+task_id	int	NO		NULL		
+task_status	varchar	NO		NULL		
+extra_info	varchar	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+company
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+name	varchar	YES		NULL		
+bounce_back_email	varchar	YES		NULL		
+takedownNotice_bcc_email	varchar	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+description	varchar	YES		NULL		
+export_date_time_flag	tinyint	YES		0		
+delete_flag	tinyint	YES		0		
+export_view_count_report	tinyint	YES		0		
+tier1	int	YES		NULL		
+tier2	int	YES		NULL		
+takedown_notice_sender_email	varchar	YES		NULL		
+takedown_notice_stmpserver	varchar	YES		NULL		
+takedown_notice_stmpuser	varchar	YES		NULL		
+takedown_notice_stmppassword	varchar	YES		NULL		
+takedown_notice_save_export_flag	tinyint	YES		0	0:disabled ; 1:enabled	
+subAccount_addtionInfo_priv	enum	NO		false		
+subAccount_categorizing_priv	enum	NO		false		
+limit_exceed_notification_email	varchar	YES		NULL		
+pgp_digital_signature_flag	tinyint	YES		NULL	0: not contain, 1: contain	
+number_of_tv_as_one_title	tinyint	YES		1		
+selecting_special_template_flag	tinyint	YES		0		
+unlock_interval	int	YES		30		
+export_revised_video_matches_flag	tinyint	YES		0		
+can_use_audio_removed_flag	tinyint	YES		0		
+sendnotice_for_sentnotremoved_flag	tinyint	YES		0		
+cyberlocker_verification_quota	int	YES		10		
+non_native_sites_flag	tinyint	YES		0		
+multipart_support_flag	tinyint	YES		0		
+resend_no_action_flag	tinyint	YES		0		
+resend_counter_received_flag	tinyint	YES		0		
+autoLockedFlag	tinyint	YES		0		
+needConfirmFlag	tinyint	YES		0		
+filteredFileType	varchar	YES		NULL		
+p2pSupportFlag	tinyint	YES		0		
+displayFoundDateFlag	tinyint	YES		0		
+supportPlayFlvOfYoukuAndKu6	tinyint	YES		0		
+is_videotrackerx_enabled	enum	NO		false		
+not_show_matches_locked_by_others	enum	NO		false		
+only_showing_active_tv_series	enum	NO		false		
+support_special_template_for_meta	enum	NO		false		
+supportUserSiteCoverage	enum	NO		false		
+groupNotSentRemovedNotice	enum	NO		false		
+time_zone	int	YES		8		
+is_support_stop_resending	enum	YES		false		
+is_support_export_report	enum	YES		false		
+is_daylightSaving	enum	NO		false		
+is_alert_enable	enum	NO		false		
+is_support_submit_url	enum	YES		true		
+
+companyClipURL
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+clip_url	varchar	NO		NULL		
+file_name	varchar	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+companyContact
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+company_id	smallint	NO	PRI	NULL		
+entity	varchar	YES		NULL		
+contact	varchar	YES		NULL		
+address	varchar	YES		NULL		
+phone	varchar	YES		NULL		
+email	varchar	YES		NULL		
+created_by	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	YES		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+companyExtraInfo
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+company_id	smallint	NO	PRI	NULL	primary key	
+bounceback_email	varchar	YES		NULL		
+takedownNotice_bcc_email	varchar	YES		NULL		
+is_deleted	enum	NO		false		
+tier1	smallint	YES		NULL	number of meta granted tier 1 privilege, ie, Fox only given 50 metas in tier1 privilege which means these 50 metas are given match video result in 8 hours	
+tier2	smallint	YES		NULL	number of meta granted tier 2 privilege, ie, Fox is given 250 metas in tier2 privilege which means these 250 metas are given match video result in 24 hours	
+export_date_time_priv	enum	NO		false	for export data use, if the flag is on, the export video clip data will include matched found time	
+export_view_count_priv	enum	NO		false	for opening of export view count, if it is true, the customer can export view count, if it is fales the customer can not export view count	
+takedown_save_export_priv	enum	NO		false	customer can save takedown notice email save before send to website	
+pgp_digital_signature_priv	enum	NO		false	if email is encryped with pgp digital signature	
+special_template_priv	enum	NO		false	if it is true, can select special email template for one meta, if it is false, email template can only select at website level	
+export_revised_video_matche_priv	enum	NO		false		
+audio_removed_priv	enum	NO		false	if the flag is on, we can help customer verify if the audio is removed	
+multipart_groupby_priv	enum	NO		false		
+auto_lock_priv	enum	NO		false		
+display_found_date_priv	enum	NO		false		
+playflv_youku_ku6_priv	enum	NO		false		
+show_locked_match_priv	enum	NO		false		
+show_active_tv_series_priv	enum	NO		false		
+user_trackingWebsite_coverage_priv	enum	NO		false		
+show_not_send_but_removed_priv	enum	NO		false		
+premium_site_priv	enum	NO		false		
+support_stop_resending_priv	enum	NO		false		
+support_export_report_priv	enum	NO		false		
+alert_enable_priv	enum	NO		false		
+support_submit_url_priv	enum	NO		false		
+support_user_trackingList_priv	enum	NO		false	Support configuring tracking lists on a user basis	
+support_childCompany_priv	enum	NO		false	Enable the sub-account feature for the selected account	
+support_data_archive_priv	enum	NO		false		
+support_sendnotice_failed_priv	enum	NO		false		
+support_cyberlocker_auto_takedown	enum	NO		false		
+cyberlocker_vdna_count	int	YES		NULL		
+hybrid_vdna_count	int	YES		NULL		
+tv_number_to_one_title	tinyint	NO		1	for TV serials, if one episode is counted as one title	
+unlock_interval	smallint	NO		30	time interval which one user can lock one or multiple clips for modification, if interval expired, the clips will be automatically unlocked, it is in minutes	
+exceed_notification_email	varchar	YES		NULL	email address which vobile can notify customer that they exceed the meta number limitation of tier1 or tier2 agreement,	
+cyberlocker_filter_file_type	varchar	YES		NULL		
+company_offical_website	varchar	YES		NULL	company offical website	
+description	varchar	YES		NULL		
+created_by	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	YES		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+is_support_ssl_mail	enum	YES		false		
+whitelist_classification	int	NO		1		
+resend_notice_whitelist_priv	enum	NO		false		
+ad_monitor_notification_priv	enum	NO		false		
+searchEngine_linkingsite_notification_priv	enum	NO		false		
+latest_matchPage_filter_priv	enum	NO		false		
+auto_sendnotice_priv	enum	NO		false	auto send and auto resend	
+resend_notice_inactive_priv	enum	NO		true		
+hybrid_VDNA_unverified_priv	enum	NO		false		
+screenshots_before_notice_number	int	YES		0	Take screenshots before N notice sending	
+only_show_download_count_priv	enum	NO		false	whether to show download_count only	
+mail_send_interval	int	NO		0		
+pending_rule_text_score	int	NO		0		
+support_edit_vddb_meta	enum	NO		false		
+
+companySiteBlacklist
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+website_domain	varchar	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+companySiteInfringFilterDailyReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+subCompany_id	smallint	NO		NULL		
+trackingWebsite_id	smallint	NO		NULL		
+report_at	date	NO		0000-00-00		
+infringing_num	int	NO		NULL		
+unfiltered_num	int	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+companySiteInfringFilterMonthlyReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+subCompany_id	smallint	NO		0		
+trackingWebsite_id	smallint	NO		NULL		
+report_at	date	NO		0000-00-00	monthly	
+infringing_num	int	NO		0		
+unfiltered_num	int	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+companySiteRedList
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingWebsite_id	int	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+companySiteSummaryReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingWebsite_id	smallint	NO		NULL		
+meta_type	enum	YES		NULL		
+report_at	date	NO		NULL		
+found_at_cumulative_match_num	int	NO		0		
+found_at_cumulative_view_count	bigint	NO		0		
+found_at_infring_match_num	int	NO		0		
+found_at_infring_view_count	bigint	NO		0		
+found_at_total_takeoff_response_time	bigint	NO		0		
+found_at_total_takeoff_num	int	NO		0		
+found_at_total_notice_num	int	NO		0		
+post_at_cumulative_match_num	int	NO		0		
+post_at_cumulative_view_count	bigint	NO		0		
+post_at_infring_match_num	int	NO		0		
+post_at_infring_view_count	bigint	NO		0		
+post_at_total_takeoff_response_time	bigint	NO		0		
+post_at_total_takeoff_num	int	NO		0		
+post_at_total_notice_num	int	NO		0		
+sent_at_takedown_match_num	int	NO		0		
+remove_at_removed_num	int	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+companySiteWhitelist
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingWebsite_id	int	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+companyTrackOverView
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+company_id	smallint	NO	PRI	NULL		
+subCompany_id	smallint	NO	PRI	0		
+most_match_meta_id	int	YES		NULL		
+most_view_meta_id	int	YES		NULL		
+tracking_title_num	int	YES		NULL		
+tracking_title_inactive_num	int	YES		NULL		
+tracking_title_requested_num	int	YES		NULL		
+tracking_list_num	int	YES		NULL		
+tracking_website_num	int	YES		NULL		
+match_num	int	YES		NULL		
+latest_24hour_match_num	int	YES		NULL		
+removed_num	int	YES		NULL		
+pending_review_num	int	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+company_classification
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+keyvalue	int	NO	PRI	NULL		auto_increment
+company_id	int	NO	PRI	NULL		
+keyname	varchar	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+company_classificationPriv
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO		NULL		
+classification_id	int	NO	MUL	NULL		
+resendnotice_priv	enum	NO		false		
+created_by	smallint	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	NO		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+company_cnts
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+company_id	int	NO	PRI	NULL		
+subAccount_id	smallint	NO	PRI	0		
+most_matches_meta_id	int	YES		NULL		
+most_views_meta_id	int	YES		NULL		
+tracking_titles_count	int	YES		NULL		
+tracking_titles_count_inactive	int	YES		NULL		
+tracking_titles_count_requested	int	YES		NULL		
+tracking_lists_count	int	YES		NULL		
+tracking_website_count	int	YES		NULL		
+matches	int	YES		NULL		
+new_matches24	int	YES		NULL		
+removed	int	YES		NULL		
+pending_review	int	YES		NULL		
+created	datetime	YES		NULL		
+updated	datetime	YES		NULL		
+
+company_homepageWidget
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+homepageWidget_id	tinyint	NO		NULL		
+created_by	smallint	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	NO		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+company_isp
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+company_id	int	NO	PRI	NULL		
+isp_id	int	NO	PRI	NULL		
+detect_ip_num	int	NO		0		
+last_send_notice_time	timestamp	NO		0000-00-00 00:00:00		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+company_tracking_setting
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+company_id	int	NO	PRI	0		
+tracking_setting_id	int	NO	PRI	0		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+
+company_transfer
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+company_id	int	NO	PRI	0		
+vddb_company_id	int	YES		NULL		
+
+company_website
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	YES	MUL	NULL		
+tracking_website_id	int	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+content_rule
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	YES		NULL		
+tracking_website_id	int	YES		NULL		
+name	varchar	YES		NULL		
+duration	int	YES		NULL		
+match_type	tinyint	YES		1		
+classify_as_no_action_flag	tinyint	YES		0		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+classification_rule_id	int	YES		NULL		
+filter_out_poster_flag	tinyint	YES		0		
+
+content_rule_author
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+content_rule_id	int	NO	PRI	0		
+tracking_website_id	int	NO	PRI	0		
+author	text	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+country
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	smallint	NO	PRI	NULL		auto_increment
+region	enum	NO		unknown		
+country_code	char	NO	UNI	NULL	china cn,JAPAN jp	
+country_name	varchar	NO		NULL		
+national_flag	varchar	NO		NULL		
+longitude	varchar	NO		0		
+latitude	varchar	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+
+countryDownloadReportP2P
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	MUL	NULL		auto_increment
+company_id	smallint	NO	PRI	0		
+trackingMeta_id	mediumint	NO	PRI	NULL	reference to id in seed table	
+seed_type	enum	NO	PRI	BitTorrent		
+country_id	tinyint	NO	PRI	0		
+download_count	int	YES		NULL		
+detected_ip_num	int	NO		0		
+created_at	date	YES		NULL		
+
+customer_provide_url
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+contributor_id	int	NO		NULL		
+contributor_company_id	int	NO	MUL	NULL		
+url	varchar	YES		NULL		
+formatted_url	varchar	YES		NULL		
+title	varchar	YES		NULL		
+website_id	int	YES		NULL		
+website	char	YES	MUL	NULL		
+key_id	varchar	YES		NULL		
+submit_time	bigint	YES		NULL		
+customer_status	enum	YES		NULL		
+system_status	enum	YES		NULL		
+
+daily_views_cnts
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+tracking_meta_id	int	NO	PRI	0		
+company_id	int	NO	PRI	NULL		
+tracking_website_id	int	NO	PRI	0		
+created_date	date	NO	PRI	0000-00-00		
+view_count	int	YES		NULL		
+infringing_view_count	int	YES		NULL		
+created	datetime	YES		NULL		
+updated	datetime	YES		NULL		
+
+emailTemplateGroup
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	NO	MUL	NULL		
+is_default	enum	NO		false	use for isp	
+tracking_website_id	int	NO		0		
+isp_id	smallint	NO		-1		
+name	varchar	NO		NULL		
+category	tinyint	NO		0		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+default_group_type	enum	YES		NULL		
+
+emailTemplateGroupItem
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+emailTemplateGroup_id	int	NO	MUL	NULL		
+position	tinyint	NO		1		
+subject	varchar	NO		NULL		
+email_panel	text	YES		NULL		
+mail	varchar	YES		NULL		
+address	varchar	YES		NULL		
+phone	varchar	YES		NULL		
+contact	varchar	YES		NULL		
+reason	varchar	YES		NULL		
+company_name	varchar	YES		NULL		
+takedown_setting	varchar	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+failedCommonTask
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		
+company_id	smallint	NO		NULL		
+task_name	varchar	YES		NULL		
+unique_key	char	NO		NULL		
+retrieval_field	varchar	YES	MUL	NULL		
+task_priority	enum	NO		normal		
+retry_count	tinyint	NO		0		
+extra_info	varchar	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+failedStatusCheckTask
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO		NULL		
+matchedVideo_id	int	NO		0		
+matchedVideo_SearchEngine_id	int	NO		0		
+matchedVideo_linkURL_id	int	NO		0		
+matchedVideo_ad_id	int	NO		0		
+matchedFileItem_id	int	NO		0	id of matchedFileItem	
+source_type	enum	NO		redListSearchEngine	source type by url	
+retry_count	tinyint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+started_at	timestamp	NO		0000-00-00 00:00:00		
+failed_at	timestamp	NO	MUL	0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+error_extra_info	varchar	YES		NULL		
+
+failedvddbSubscriptionTask
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+meta_uuid_list	text	NO		NULL		
+retry_times	int	YES		0		
+type	enum	NO		NULL		
+created_by	int	YES		NULL		
+created_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+fc2EmailConfirmNotice
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+confirm_url	varchar	NO	UNI	NULL		
+send_date	timestamp	NO		0000-00-00 00:00:00		
+received_date	timestamp	NO		0000-00-00 00:00:00		
+confirm_date	timestamp	NO		0000-00-00 00:00:00		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+finishedCommonTask
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		
+company_id	smallint	NO		NULL		
+task_name	varchar	YES		NULL		
+unique_key	char	NO		NULL		
+retrieval_field	varchar	YES	MUL	NULL		
+task_priority	enum	NO		normal		
+retry_count	tinyint	NO		0		
+extra_info	varchar	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+finishedControl
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO		NULL	reference to id of company table	
+model_key_id	varchar	NO		NULL		
+model_name	varchar	NO		NULL		
+status	enum	NO		finished		
+run_at	timestamp	NO		0000-00-00 00:00:00		
+type	enum	NO		interval		
+interval_sec	int	NO		0		
+crontrigger	varchar	YES		NULL		
+is_task_compensation	enum	NO		false		
+task_setting	varchar	NO				
+start_at	timestamp	NO		0000-00-00 00:00:00		
+finished_at	timestamp	NO		0000-00-00 00:00:00		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+finishedSnapshotTask
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO		NULL		
+matchedVideo_id	int	NO		NULL		
+takedownNoticeItem_id	int	NO		0	id of takedownNoticeItem	
+is_ad	enum	NO		false	snapshot content is ad or not	
+task_priority	enum	NO		normal	task prioriy	
+retry_count	tinyint	NO		0		
+error_extra_info	varchar	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+started_at	timestamp	NO		0000-00-00 00:00:00		
+synced_at	timestamp	NO		0000-00-00 00:00:00		
+finished_at	timestamp	NO	MUL	0000-00-00 00:00:00		
+
+finishedStatusCheckTask
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO		NULL		
+matchedVideo_id	int	NO		0		
+matchedVideo_SearchEngine_id	int	NO		0		
+matchedVideo_linkURL_id	int	NO		0		
+matchedVideo_ad_id	int	NO		0		
+matchedFileItem_id	int	NO		0	id of matchedFileItem	
+source_type	enum	NO		redListSearchEngine	source type by url	
+retry_count	tinyint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+started_at	timestamp	NO		0000-00-00 00:00:00		
+finished_at	timestamp	NO	MUL	0000-00-00 00:00:00		
+error_extra_info	varchar	YES		NULL		
+
+homepageWidget
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	tinyint	NO	PRI	NULL		auto_increment
+widget_name	varchar	YES		NULL		
+is_default	enum	NO		false	true means this widget is always in home page, no need to configure by vobile admin	
+created_by	smallint	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	NO		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+isp
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	mediumint	NO	PRI	NULL		auto_increment
+country_id	smallint	NO	MUL	0		
+isp_name	varchar	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+
+ispDownloadReportP2P
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	MUL	NULL		auto_increment
+company_id	smallint	NO	PRI	0		
+trackingMeta_id	mediumint	NO	PRI	NULL	reference to id in seed table	
+seed_type	enum	NO	PRI	BitTorrent		
+isp_id	smallint	NO	PRI	0		
+country_id	tinyint	NO		NULL		
+downlodad_count	int	YES		NULL		
+created_at	date	YES		NULL		
+
+ispSetting
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+isp_id	mediumint	NO	UNI	NULL		
+smtp_server	varchar	YES		NULL		
+smtp_user	varchar	YES		NULL		
+smtp_password	varchar	YES		NULL		
+created_by	smallint	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	NO		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+linkingSiteReportsForPerDay
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL	linkingSiteReportsForPerDay id	auto_increment
+company_id	smallint	NO	MUL	NULL	reference to id of company table	
+trackingWebsite_id	int	NO		NULL		
+created_date	date	NO		0000-00-00		
+numOfMatches	int	YES		0		
+numOfMatchesSent	int	YES		0		
+numOfMatchesSentRemoved	int	YES		0		
+
+linkingSiteReportsForPerTenDays
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL	linkingSiteReportsForPerTenDays id	auto_increment
+company_id	smallint	NO	MUL	NULL	reference to id of company table	
+trackingWebsite_id	int	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+start_date	date	NO		0000-00-00		
+end_date	date	NO		0000-00-00		
+numOfMatches	int	YES		0		
+numOfMatchesSent	int	YES		0		
+numOfMatchesSentRemoved	int	YES		0		
+
+lock_match
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	YES	MUL	NULL		
+user_id	int	YES		NULL		
+isP2PMatch	enum	NO		false		
+tracking_relation_id	int	YES		NULL		
+expiration_minute	int	YES		NULL		
+created	datetime	YES		NULL		
+
+mailing_list
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+parent_mailing_list_id	int	NO		0		
+company_id	int	YES	MUL	NULL		
+tracking_website_id	int	NO		0		
+isp_id	smallint	NO		-1		
+name	varchar	YES		NULL		
+description	text	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+category	tinyint	YES		0	0: common 1:default 2:special	
+
+mailing_list_items
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+mailing_list_id	int	YES		NULL		
+cardinfo_id	int	YES		NULL		
+to_flag	tinyint	YES		NULL		
+cc_flag	tinyint	YES		NULL		
+bcc_flag	tinyint	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+matchSubscriptionInfo
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+matchSubscriptionService_id	tinyint	NO	MUL	NULL		
+company_id	smallint	NO		NULL		
+trackingWebsite_id	int	NO		NULL		
+is_synced_history_matches	enum	NO		false		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+matchSubscriptionService
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	tinyint	NO	PRI	NULL		auto_increment
+service_name	varchar	NO	UNI	NULL		
+service_url	varchar	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+matchedFile
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+uuid	char	NO		NULL	uuid generated by vobile cyberlocker backend 	
+trackingWebsite_id	smallint	NO		NULL		
+source_url	varchar	NO		NULL	orginal page url where the matchedFile come from 	
+clip_title	varchar	NO		NULL		
+clip_size	bigint	NO		0		
+takeoff_time	timestamp	NO		0000-00-00 00:00:00	file take off time	
+created_by	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	YES		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+matchedFileItem
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+matchedFile_id	int	NO		NULL		
+trackingWebsite_id	int	NO	MUL	0		
+key_id	varchar	NO		NULL	website keyid	
+file_name	varchar	YES		NULL		
+file_size	bigint	YES		NULL		
+clip_url	varchar	NO		NULL	matched file url	
+takeoff_time	timestamp	NO		0000-00-00 00:00:00		
+takeoff_type	enum	YES		online		
+
+matchedMusic
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL	matchedVideoSequence id	
+company_id	smallint	NO	PRI	NULL	reference to id of company table	
+trackingMeta_id	mediumint	NO	MUL	NULL	reference to id of trackingMeta table	
+trackingWebsite_id	smallint	NO	MUL	NULL		
+key_id	varchar	NO	MUL	NULL	use to represent image_path and animation_path	
+relationGroup_id	int	YES	MUL	NULL	id from relationGroup table	
+view_count	int	NO		0	times the video clip has been viewed on the website	
+relationGroup_status	enum	YES		NULL	status of relationGroup	
+is_contentRule_applied	enum	NO		false	flag for if the content rule is applied to the video clip	
+is_snapshot_generated	enum	NO		false	is exist webshot	
+is_in_takedown_queue	enum	NO		false		
+is_media_file_exist	enum	NO		false		
+in_takedown_queue_date	timestamp	NO		0000-00-00 00:00:00		
+count_send_notice	tinyint	YES		0	if the takedown has been sent count_send_notice will be added by 1	
+first_send_notice_date	timestamp	NO		0000-00-00 00:00:00	first timestamp takedown notice send	
+last_send_notice_date	timestamp	NO		0000-00-00 00:00:00	last timestamp takedown notice send	
+notice_send_by	smallint	YES		NULL		
+takeoff_time	timestamp	NO		0000-00-00 00:00:00		
+content_type	enum	NO		NULL	currently we support three types 'Movie', 'TV', 'Music'	
+content_sub_type	enum	YES		NULL		
+takeoff_type	enum	NO		online	if it is audio, video or both offline	
+hide_flag	tinyint	NO		0	company classification key value	
+hide_by	smallint	YES		NULL	user id from user table	
+hide_date	timestamp	NO		0000-00-00 00:00:00	date the operation on this hide_flag	
+clip_suffix	varchar	YES		NULL	music file suffix	
+clip_duration	smallint	NO		NULL		
+clip_size	int	NO		0		
+clip_url	varchar	NO	MUL	NULL		
+download_url	varchar	YES		NULL		
+clip_title	varchar	YES		NULL	clip title	
+clip_offset	smallint	NO		NULL	offset on video clip where matched to meta begin	
+meta_offset	mediumint	NO		NULL	Offset on meta where the video clip match begins	
+score_video	tinyint	YES		NULL	score of video	
+score_audio	tinyint	YES		NULL	score of audio	
+matched_duration	smallint	NO		0	matched clip duration of bigger number of duration_video and duration_audion 	
+matched_video_duration	smallint	NO		0	matched clip video duration	
+matched_audio_duration	smallint	NO		0	matched clip audio duration	
+verification	enum	NO		vdna	version 2.1 for certification if it is verified manually, or by QE or not verified	
+matched_storage_domain	enum	YES		NULL		
+matched_storage_date	date	YES		NULL	use to represent image_path and animation_path	
+instance_title	varchar	YES		NULL	matched instance title from vddb	
+instance_duration	smallint	YES		0		
+meta_uuid	char	NO		NULL	uuid from meta table	
+meta_title	varchar	NO		NULL	title from meta table	
+meta_duration	smallint	NO		NULL	duration of meta	
+vddb_title	varchar	NO		NULL	original title from VDDB, meta title may different from VDDB title since customer can modify the VDDB title. We keep this VDDB title so that we know a set of different meta title may come from the same VDDB tile	
+notes	varchar	YES		NULL	on web page, customer can input notice for the video clip	
+start_at	timestamp	NO		0000-00-00 00:00:00	tracking time started at	
+created_at	timestamp	NO	MUL	0000-00-00 00:00:00		
+updated_at	timestamp	NO	MUL	CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+contributor	enum	YES		NULL		
+singer	varchar	YES		NULL		
+
+matchedMusicCollateral
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+matchedMusic_id	int	NO	PRI	NULL	id from matchedVideo table since it is the extension table of matchedVideo	
+company_id	smallint	NO	PRI	NULL	id from company table	
+key_id	varchar	YES		NULL	use to represent dna_path,media_path	
+matched_storage_date	date	YES		NULL	use to represent dna_path,media_path	
+matched_media_domain	enum	YES		NULL		
+contributor	enum	NO		NULL		
+audio_detail_id	int	YES		NULL		
+video_detail_id	int	YES		NULL		
+autoConfirmRule_id	int	YES		NULL		
+title_similarity	tinyint	YES		0		
+confirm_by	smallint	YES		NULL	user id of the person who did the video match confirm	
+confirm_at	timestamp	NO		0000-00-00 00:00:00	timestamp the confirmation is done	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+
+matchedMusicConfirmWrong
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL	matchedVideoSequence id	
+company_id	smallint	NO	PRI	NULL	reference to id of company table	
+trackingMeta_id	mediumint	NO	MUL	NULL	reference to id of trackingMeta table	
+trackingWebsite_id	smallint	NO		NULL		
+key_id	varchar	NO	MUL	NULL	use to represent image_path and animation_path	
+relationGroup_id	int	YES	MUL	NULL	id from relationGroup table	
+view_count	int	NO		0	times the video clip has been viewed on the website	
+relationGroup_status	enum	YES		NULL	status of relationGroup	
+is_contentRule_applied	enum	NO		false	flag for if the content rule is applied to the video clip	
+is_snapshot_generated	enum	NO		false	is exist webshot	
+is_in_takedown_queue	enum	NO		false		
+is_media_file_exist	enum	NO		false		
+in_takedown_queue_date	timestamp	NO		0000-00-00 00:00:00		
+count_send_notice	tinyint	YES		0	if the takedown has been sent count_send_notice will be added by 1	
+first_send_notice_date	timestamp	NO		0000-00-00 00:00:00	first timestamp takedown notice send	
+last_send_notice_date	timestamp	NO		0000-00-00 00:00:00	last timestamp takedown notice send	
+notice_send_by	smallint	YES		NULL		
+takeoff_time	timestamp	NO		0000-00-00 00:00:00		
+content_type	enum	NO		NULL	currently we support three types 'Movie', 'TV', 'Music'	
+content_sub_type	enum	YES		NULL		
+takeoff_type	enum	NO		online	if it is audio, video or both offline	
+hide_flag	tinyint	NO		0	company classification key value	
+hide_by	smallint	YES		NULL	user id from user table	
+hide_date	timestamp	NO		0000-00-00 00:00:00	date the operation on this hide_flag	
+clip_suffix	varchar	YES		NULL	music file suffix	
+clip_duration	smallint	NO		NULL		
+clip_size	int	NO		0		
+clip_url	varchar	NO	MUL	NULL		
+download_url	varchar	YES		NULL		
+clip_title	varchar	YES		NULL	clip title	
+clip_offset	smallint	NO		NULL	offset on video clip where matched to meta begin	
+meta_offset	mediumint	NO		NULL	Offset on meta where the video clip match begins	
+score_video	tinyint	YES		NULL	score of video	
+score_audio	tinyint	YES		NULL	score of audio	
+matched_duration	smallint	NO		0	matched clip duration of bigger number of duration_video and duration_audion 	
+matched_video_duration	smallint	NO		0	matched clip video duration	
+matched_audio_duration	smallint	NO		0	matched clip audio duration	
+verification	enum	NO		vdna	version 2.1 for certification if it is verified manually, or by QE or not verified	
+matched_storage_domain	enum	YES		NULL		
+matched_storage_date	date	YES		NULL	use to represent image_path and animation_path	
+instance_title	varchar	YES		NULL	matched instance title from vddb	
+instance_duration	smallint	YES		0		
+meta_uuid	char	NO		NULL	uuid from meta table	
+meta_title	varchar	NO		NULL	title from meta table	
+meta_duration	smallint	NO		NULL	duration of meta	
+vddb_title	varchar	NO		NULL	original title from VDDB, meta title may different from VDDB title since customer can modify the VDDB title. We keep this VDDB title so that we know a set of different meta title may come from the same VDDB tile	
+notes	varchar	YES		NULL	on web page, customer can input notice for the video clip	
+start_at	timestamp	NO		0000-00-00 00:00:00	tracking time started at	
+created_at	timestamp	NO	MUL	0000-00-00 00:00:00		
+updated_at	timestamp	NO	MUL	CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+contributor	enum	NO		NULL		
+singer	varchar	YES		NULL		
+
+matchedMusicConfirmWrongCollateral
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+matchedMusic_id	int	NO	PRI	NULL	id from matchedVideo table since it is the extension table of matchedVideo	
+company_id	smallint	NO	PRI	NULL	id from company table	
+key_id	varchar	YES		NULL	use to represent dna_path,media_path	
+matched_storage_date	date	YES		NULL	use to represent dna_path,media_path	
+matched_media_domain	enum	YES		NULL		
+contributor	enum	NO		NULL		
+audio_detail_id	int	YES		NULL		
+video_detail_id	int	YES		NULL		
+autoConfirmRule_id	int	YES		NULL		
+title_similarity	tinyint	YES		0		
+confirm_by	smallint	YES		NULL	user id of the person who did the video match confirm	
+confirm_at	timestamp	NO		0000-00-00 00:00:00	timestamp the confirmation is done	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+
+matchedMusicConfirmWrongDetail
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	PRI	NULL	id from company table	
+matchedMusic_id	int	NO	MUL	NULL		
+instance_uuid	char	NO			from vddb	
+track_type	enum	NO		Video		
+track_id	tinyint	NO		0	track number	
+score	tinyint	YES		NULL	audio or video score	
+meta_offset	mediumint	YES		NULL		
+clip_offset	mediumint	YES		NULL		
+matched_duration	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+
+matchedMusicDetail
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	PRI	NULL	id from company table	
+matchedMusic_id	int	NO	MUL	NULL		
+instance_uuid	char	NO			from vddb	
+track_type	enum	NO		Video		
+track_id	tinyint	NO		0	track number	
+score	tinyint	YES		NULL	audio or video score	
+meta_offset	mediumint	YES		NULL		
+clip_offset	mediumint	YES		NULL		
+matched_duration	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+
+matchedMusicPending
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL	matchedVideoSequence id	
+company_id	smallint	NO	PRI	NULL	reference to id of company table	
+trackingMeta_id	mediumint	NO	MUL	NULL	reference to id of trackingMeta table	
+trackingWebsite_id	smallint	NO		NULL		
+key_id	varchar	NO	MUL	NULL	use to represent image_path and animation_path	
+relationGroup_id	int	YES	MUL	NULL	id from relationGroup table	
+view_count	int	NO		0	times the video clip has been viewed on the website	
+relationGroup_status	enum	YES		NULL	status of relationGroup	
+is_contentRule_applied	enum	NO		false	flag for if the content rule is applied to the video clip	
+is_snapshot_generated	enum	NO		false	is exist webshot	
+is_in_takedown_queue	enum	NO		false		
+is_media_file_exist	enum	NO		false		
+in_takedown_queue_date	timestamp	NO		0000-00-00 00:00:00		
+count_send_notice	tinyint	YES		0	if the takedown has been sent count_send_notice will be added by 1	
+first_send_notice_date	timestamp	NO		0000-00-00 00:00:00	first timestamp takedown notice send	
+last_send_notice_date	timestamp	NO		0000-00-00 00:00:00	last timestamp takedown notice send	
+notice_send_by	smallint	YES		NULL		
+takeoff_time	timestamp	NO		0000-00-00 00:00:00		
+content_type	enum	NO		NULL	currently we support three types 'Movie', 'TV', 'Music'	
+content_sub_type	enum	YES		NULL		
+takeoff_type	enum	NO		online	if it is audio, video or both offline	
+hide_flag	tinyint	NO		0	company classification key value	
+hide_by	smallint	YES		NULL	user id from user table	
+hide_date	timestamp	NO		0000-00-00 00:00:00	date the operation on this hide_flag	
+clip_suffix	varchar	YES		NULL	music file suffix	
+clip_duration	smallint	NO		NULL		
+clip_size	int	NO		0		
+clip_url	varchar	NO	MUL	NULL		
+download_url	varchar	YES		NULL		
+clip_title	varchar	YES		NULL	clip title	
+clip_offset	smallint	NO		NULL	offset on video clip where matched to meta begin	
+meta_offset	mediumint	NO		NULL	Offset on meta where the video clip match begins	
+score_video	tinyint	YES		NULL	score of video	
+score_audio	tinyint	YES		NULL	score of audio	
+matched_duration	smallint	NO		0	matched clip duration of bigger number of duration_video and duration_audion 	
+matched_video_duration	smallint	NO		0	matched clip video duration	
+matched_audio_duration	smallint	NO		0	matched clip audio duration	
+verification	enum	NO		vdna	version 2.1 for certification if it is verified manually, or by QE or not verified	
+matched_storage_domain	enum	YES		NULL		
+matched_storage_date	date	YES		NULL	use to represent image_path and animation_path	
+instance_title	varchar	YES		NULL	matched instance title from vddb	
+instance_duration	smallint	YES		0		
+meta_uuid	char	NO		NULL	uuid from meta table	
+meta_title	varchar	NO		NULL	title from meta table	
+meta_duration	smallint	NO		NULL	duration of meta	
+vddb_title	varchar	NO		NULL	original title from VDDB, meta title may different from VDDB title since customer can modify the VDDB title. We keep this VDDB title so that we know a set of different meta title may come from the same VDDB tile	
+notes	varchar	YES		NULL	on web page, customer can input notice for the video clip	
+start_at	timestamp	NO		0000-00-00 00:00:00	tracking time started at	
+created_at	timestamp	NO	MUL	0000-00-00 00:00:00		
+updated_at	timestamp	NO	MUL	CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+contributor	enum	NO		NULL		
+singer	varchar	YES		NULL		
+
+matchedMusicPendingCollateral
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+matchedMusic_id	int	NO	PRI	NULL	id from matchedVideo table since it is the extension table of matchedVideo	
+company_id	smallint	NO	PRI	NULL	id from company table	
+key_id	varchar	YES		NULL	use to represent dna_path,media_path	
+matched_storage_date	date	YES		NULL	use to represent dna_path,media_path	
+matched_media_domain	enum	YES		NULL		
+contributor	enum	NO		NULL		
+audio_detail_id	int	YES		NULL		
+video_detail_id	int	YES		NULL		
+autoConfirmRule_id	int	YES		NULL		
+title_similarity	tinyint	YES		0		
+confirm_by	smallint	YES		NULL	user id of the person who did the video match confirm	
+confirm_at	timestamp	NO		0000-00-00 00:00:00	timestamp the confirmation is done	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+
+matchedMusicPendingDetail
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	PRI	NULL	id from company table	
+matchedMusic_id	int	NO	MUL	NULL		
+instance_uuid	char	NO			from vddb	
+track_type	enum	NO		Video		
+track_id	tinyint	NO		0	track number	
+score	tinyint	YES		NULL	audio or video score	
+meta_offset	mediumint	YES		NULL		
+clip_offset	mediumint	YES		NULL		
+matched_duration	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+
+matchedMusicSequence
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+key_id	varchar	NO	MUL	NULL		
+trackingWebsite_id	smallint	NO		NULL		
+trackingMeta_id	mediumint	NO		NULL		
+company_id	int	NO		NULL		
+
+matchedVideo
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL	matchedVideoSequence id	
+company_id	smallint	NO	PRI	NULL	reference to id of company table	
+trackingMeta_id	mediumint	NO	MUL	NULL	reference to id of trackingMeta table	
+trackingWebsite_id	smallint	NO		NULL		
+key_id	varchar	NO	MUL	NULL	use to represent image_path and animation_path	
+relationGroup_id	int	YES	MUL	NULL	id from relationGroup table	
+view_count	mediumint	NO		0	times the video clip has been viewed on the website	
+poster	varchar	YES	MUL	NULL	poster name	
+post_date	timestamp	NO	MUL	0000-00-00 00:00:00		
+relationGroup_status	enum	YES		NULL	status of relationGroup	
+is_contentRule_applied	enum	NO		false	flag for if the content rule is applied to the video clip	
+is_snapshot_generated	enum	NO		false	is exist webshot	
+is_in_takedown_queue	enum	NO		false		
+is_media_file_exist	enum	NO		false		
+in_takedown_queue_date	timestamp	NO		0000-00-00 00:00:00		
+count_send_notice	int	YES		0	if the takedown has been sent count_send_notice will be added by 1	
+first_send_notice_date	timestamp	NO		0000-00-00 00:00:00	first timestamp takedown notice send	
+last_send_notice_date	timestamp	NO		0000-00-00 00:00:00	last timestamp takedown notice send	
+notice_send_by	smallint	YES		NULL		
+takeoff_time	timestamp	NO		0000-00-00 00:00:00		
+content_type	enum	NO		NULL	currently we support three types 'Movie', 'TV', 'Music'	
+content_sub_type	enum	YES		NULL		
+takeoff_type	enum	NO		online	if it is audio, video or both offline	
+hide_flag	tinyint	NO		0	company classification key value	
+hide_by	smallint	YES		NULL	user id from user table	
+hide_date	timestamp	NO		0000-00-00 00:00:00	date the operation on this hide_flag	
+clip_duration	smallint	NO		NULL		
+clip_size	bigint	NO		0		
+clip_url_reverse	char	NO		NULL	reverse string of first 10 character of the clip url, used to indexing for url search indexing	
+clip_url	varchar	NO	MUL	NULL		
+download_url	varchar	YES		NULL		
+clip_title	varchar	YES		NULL	clip title	
+clip_offset	smallint	NO		NULL	offset on video clip where matched to meta begin	
+meta_offset	smallint	NO		NULL	Offset on meta where the video clip match begins	
+score_video	tinyint	YES		NULL	score of video	
+score_audio	tinyint	YES		NULL	score of audio	
+matched_duration	smallint	NO		0	matched clip duration of bigger number of duration_video and duration_audion 	
+matched_video_duration	smallint	NO		0	matched clip video duration	
+matched_audio_duration	smallint	NO		0	matched clip audio duration	
+verification	enum	NO		vdna		
+posterID_url	varchar	YES		NULL	url for posterID	
+matched_storage_domain	enum	YES		xcache.videodna.com		
+matched_storage_date	date	YES		NULL	use to represent image_path and animation_path	
+season_number	smallint	YES		NULL	season number from meta	
+episode_number	mediumint	YES		NULL	episode number from meta	
+instance_title	varchar	YES		NULL	matched instance title from vddb	
+instance_duration	smallint	YES		0		
+matchedFile_id	int	YES	MUL	0	for cyberlocker, if it is cyberlock match, then there is a collection Id	
+meta_uuid	char	NO		NULL	uuid from meta table	
+meta_title	varchar	NO		NULL	title from meta table	
+meta_duration	smallint	NO		NULL	duration of meta	
+vddb_title	varchar	NO		NULL	original title from VDDB, meta title may different from VDDB title since customer can modify the VDDB title. We keep this VDDB title so that we know a set of different meta title may come from the same VDDB tile	
+notes	varchar	YES		NULL	on web page, customer can input notice for the video clip	
+start_at	timestamp	NO		0000-00-00 00:00:00	tracking time started at	
+created_at	timestamp	NO	MUL	0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+contributor	enum	YES		NULL		
+is_poster_whitelist_filtered	enum	YES		false		
+
+matchedVideoCollateral
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+matchedVideo_id	int	NO	PRI	NULL	id from matchedVideo table since it is the extension table of matchedVideo	
+company_id	smallint	NO	PRI	NULL	id from company table	
+key_id	varchar	YES		NULL	use to represent dna_path,media_path	
+matched_storage_date	date	YES		NULL	use to represent dna_path,media_path	
+matched_media_domain	enum	YES		xcache.videodna.com		
+matched_media_suffix	varchar	YES		NULL	media_path suffix may different with each other like mp4,avi,rmvb.	
+hybrid_download_url	varchar	YES		NULL		
+extra_download_url	text	YES		NULL	full download url	
+contributor	enum	YES		NULL		
+audio_detail_id	int	YES		NULL		
+video_detail_id	int	YES		NULL		
+text_match_keyword	varchar	YES		NULL		
+text_match_keyword_score	smallint	NO		0		
+optimum_type	enum	YES		NULL	better type of audio or video which has better quality	
+confirm_by	smallint	YES		NULL	user id of the person who did the video match confirm	
+confirm_at	timestamp	NO		0000-00-00 00:00:00	timestamp the confirmation is done	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+autoConfirmRule_id	int	YES		NULL		
+title_similarity	tinyint	YES		0		
+priority_type	enum	YES		NULL	1 is tier1 0 is tier2	
+seedResource_key_id	varchar	NO			seedResource key id.jpg,gif file stored in resource	
+
+matchedVideoConfirmWrong
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		
+company_id	smallint	NO	PRI	NULL	reference to id of company table	
+trackingMeta_id	mediumint	NO	MUL	NULL	reference to id of trackingMeta table	
+trackingWebsite_id	smallint	NO		NULL		
+key_id	varchar	NO	MUL	NULL	use to represent image_path and animation_path	
+relationGroup_id	int	YES		NULL	id from relationGroup table	
+view_count	mediumint	NO		0	times the video clip has been viewed on the website	
+poster	varchar	YES	MUL	NULL	poster name	
+post_date	timestamp	NO	MUL	0000-00-00 00:00:00		
+relationGroup_status	enum	YES		NULL	status of relationGroup	
+is_contentRule_applied	enum	NO		false	flag for if the content rule is applied to the video clip	
+is_in_takedown_queue	enum	NO		false		
+is_snapshot_generated	enum	NO		false	is exist webshot	
+is_media_file_exist	enum	NO		false		
+in_takedown_queue_date	timestamp	NO		0000-00-00 00:00:00		
+count_send_notice	int	YES		0	if the takedown has been sent count_send_notice will be added by 1	
+first_send_notice_date	timestamp	NO		0000-00-00 00:00:00	first timestamp takedown notice send	
+last_send_notice_date	timestamp	NO		0000-00-00 00:00:00	last timestamp takedown notice send	
+notice_send_by	smallint	YES		NULL		
+takeoff_time	timestamp	NO		0000-00-00 00:00:00		
+content_type	enum	NO		NULL	currently we support three types 'Movie', 'TV', 'Music'	
+content_sub_type	enum	YES		NULL		
+takeoff_type	enum	NO		online	if it is audio, video or both offline	
+hide_flag	tinyint	NO		0	company classification key value	
+hide_by	smallint	YES		NULL	user id from user table	
+hide_date	timestamp	NO		0000-00-00 00:00:00	date the operation on this hide_flag	
+clip_duration	smallint	NO		NULL		
+clip_size	bigint	NO		0		
+clip_url_reverse	char	NO		NULL	reverse string of first 10 character of the clip url, used to indexing for url search indexing	
+clip_url	varchar	NO	MUL	NULL		
+download_url	varchar	YES		NULL		
+clip_title	varchar	YES		NULL	clip title	
+clip_offset	smallint	NO		NULL	offset on video clip where matched to meta begin	
+meta_offset	smallint	NO		NULL	Offset on meta where the video clip match begins	
+score_video	tinyint	YES		NULL	score of video	
+score_audio	tinyint	YES		NULL	score of audio	
+matched_duration	smallint	NO		0	matched clip duration of bigger number of duration_video and duration_audion 	
+matched_video_duration	smallint	NO		0	matched clip video duration	
+matched_audio_duration	smallint	NO		0	matched clip audio duration	
+verification	enum	NO		vdna		
+posterID_url	varchar	YES		NULL	url for posterID	
+matched_storage_domain	enum	YES		xcache.videodna.com		
+matched_storage_date	date	YES		NULL	use to represent image_path and animation_path	
+season_number	smallint	YES		NULL	season number from meta	
+episode_number	mediumint	YES		NULL	episode number from meta	
+instance_title	varchar	YES		NULL	matched instance title from vddb	
+instance_duration	smallint	YES		0		
+matchedFile_id	int	YES		0	for cyberlocker, if it is cyberlock match, then there is a collection Id	
+meta_uuid	char	NO		NULL	uuid from meta table	
+meta_title	varchar	NO		NULL	title from meta table	
+meta_duration	smallint	NO		NULL	duration of meta	
+vddb_title	varchar	NO		NULL	original title from VDDB, meta title may different from VDDB title since customer can modify the VDDB title. We keep this VDDB title so that we know a set of different meta title may come from the same VDDB tile	
+notes	varchar	YES		NULL	on web page, customer can input notice for the video clip	
+start_at	timestamp	NO		0000-00-00 00:00:00	tracking time started at	
+created_at	timestamp	NO	MUL	0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+contributor	enum	YES		NULL		
+is_poster_whitelist_filtered	enum	YES		false		
+
+matchedVideoConfirmWrongCollateral
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+matchedVideo_id	int	NO	PRI	NULL	id from matchedVideo table since it is the extension table of matchedVideo	
+company_id	smallint	NO	PRI	NULL	id from company table	
+key_id	varchar	YES		NULL	use to represent dna_path,media_path	
+matched_storage_date	date	YES		NULL	use to represent dna_path,media_path	
+matched_media_domain	enum	YES		xcache.videodna.com		
+matched_media_suffix	varchar	YES		NULL	media_path suffix may different with each other like mp4,avi,rmvb.	
+hybrid_download_url	varchar	YES		NULL		
+extra_download_url	text	YES		NULL	full download url	
+contributor	enum	NO		NULL	contributor of the matched video 	
+audio_detail_id	int	YES		NULL		
+video_detail_id	int	YES		NULL		
+text_match_keyword	varchar	YES		NULL		
+text_match_keyword_score	smallint	NO		0		
+optimum_type	enum	YES		NULL	better type of audio or video which has better quality	
+confirm_by	smallint	YES		NULL	user id of the person who did the video match confirm	
+confirm_at	timestamp	NO		0000-00-00 00:00:00	timestamp the confirmation is done	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+autoConfirmRule_id	int	YES		NULL		
+title_similarity	tinyint	YES		0		
+priority_type	enum	YES		NULL	1 is tier1 0 is tier2	
+seedResource_key_id	varchar	NO			seedResource key id.jpg,gif file stored in resource	
+
+matchedVideoConfirmWrongDetail
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	PRI	NULL	id from company table	
+matchedVideo_id	int	NO	MUL	NULL		
+instance_uuid	char	NO			from vddb	
+track_type	enum	NO		Video		
+track_id	tinyint	NO		0	track number	
+score	tinyint	YES		NULL	audio or video score	
+meta_offset	mediumint	YES		NULL		
+clip_offset	mediumint	YES		NULL		
+matched_duration	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+
+matchedVideoDetail
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	PRI	NULL	id from company table	
+matchedVideo_id	int	NO	MUL	NULL		
+instance_uuid	char	NO			from vddb	
+track_type	enum	NO		Video		
+track_id	tinyint	NO		0	track number	
+score	tinyint	YES		NULL	audio or video score	
+meta_offset	mediumint	YES		NULL		
+clip_offset	mediumint	YES		NULL		
+matched_duration	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+
+matchedVideoExtraInfo
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+matchedVideo_id	int	NO	MUL	NULL	id from matchedVideo table since it is the extension table of matchedVideo	
+company_id	smallint	NO		NULL	id from company table	
+extra_clip_url	text	YES		NULL	full clip url	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+matchedVideoKeyid
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		
+trackingWebsite_id	mediumint	NO	MUL	NULL		
+key_id	varchar	NO		NULL		
+meta_uuid	char	NO		NULL		
+
+matchedVideoP2P
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL	matchedVideoSequence id	
+company_id	smallint	NO	PRI	NULL	reference to id of company table	
+country_id	tinyint	YES		0		
+trackingMeta_id	mediumint	NO		NULL	reference to id of trackingMeta table	
+trackingWebsite_id	smallint	NO		NULL	 bt or emul, p2p consider bt,emule as a website	
+key_id	varchar	NO		NULL	seed key_id	
+seedResource_key_id	varchar	NO		NULL	seedResource key id.jpg,gif file stored in resource	
+download_count	int	NO		0	times the video clip has been viewed on the website	
+zero_download_num	int	NO		0		
+isp_name	varchar	YES		NULL	poster name	
+post_date	timestamp	NO		0000-00-00 00:00:00		
+is_in_takedown_queue	enum	NO		false		
+is_media_file_exist	enum	NO		false		
+in_takedown_queue_date	timestamp	NO		0000-00-00 00:00:00		
+count_send_notice	int	NO		0		
+first_send_notice_date	timestamp	NO		0000-00-00 00:00:00	first timestamp takedown notice send	
+last_send_notice_date	timestamp	NO		0000-00-00 00:00:00	last timestamp takedown notice send	
+notice_send_by	smallint	YES		NULL		
+content_type	enum	NO		NULL	currently we support three types 'Movie', 'TV', 'Music'	
+content_sub_type	enum	YES		NULL		
+hide_flag	tinyint	NO		0	company classification key value	
+hide_by	smallint	YES		NULL	user id from user table	
+hide_date	timestamp	NO		0000-00-00 00:00:00	date the operation on this hide_flag	
+clip_duration	smallint	NO		NULL		
+clip_size	bigint	NO		0		
+clip_url	varchar	YES		NULL		
+clip_title	varchar	YES		NULL	clip title	
+clip_offset	smallint	NO		NULL	offset on video clip where matched to meta begin	
+meta_offset	mediumint	NO		NULL	Offset on meta where the video clip match begins	
+score_video	tinyint	YES		NULL	score of video	
+score_audio	tinyint	YES		NULL	score of audio	
+matched_duration	smallint	NO		0	matched clip duration of bigger number of duration_video and duration_audion 	
+matched_video_duration	smallint	NO		0	matched clip video duration	
+matched_audio_duration	smallint	NO		0	matched clip audio duration	
+verification	enum	NO		vdna	version 2.1 for certification if it is verified manually, or by QE or not verified	
+matched_storage_domain	enum	YES		NULL		
+matched_storage_date	date	YES		NULL	use to represent image_path and animation_path	
+season_number	smallint	YES		NULL	season number from meta	
+episode_number	mediumint	YES		NULL	episode number from meta	
+instance_title	varchar	YES		NULL	matched instance title from vddb	
+matchedFile_id	int	YES		0	for cyberlocker, if it is cyberlock match, then there is a collection Id	
+meta_uuid	char	NO		NULL	uuid from meta table	
+meta_title	varchar	NO		NULL	title from meta table	
+meta_duration	smallint	NO		NULL	duration of meta	
+vddb_title	varchar	NO		NULL	original title from VDDB, meta title may different from VDDB title since customer can modify the VDDB title. We keep this VDDB title so that we know a set of different meta title may come from the same VDDB tile	
+notes	varchar	YES		NULL	on web page, customer can input notice for the video clip	
+start_at	timestamp	NO		0000-00-00 00:00:00	tracking time started at	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+contributor	enum	YES		NULL		
+verified_at	timestamp	NO		0000-00-00 00:00:00		
+is_contentRule_applied	enum	NO		false		
+
+matchedVideoP2PCollateral
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+matchedVideoP2P_id	int	NO	PRI	NULL	id from matchedVideo table since it is the extension table of matchedVideo	
+company_id	smallint	NO	PRI	NULL	id from company table	
+key_id	varchar	YES		NULL	seed key id	
+seedResource_key_id	varchar	NO		NULL	seedResource key id.jpg,gif file stored in resource	
+matched_storage_date	date	YES		NULL	use to represent dna_path,media_path	
+matched_media_domain	enum	YES		NULL		
+matched_media_suffix	varchar	YES		NULL	media_path suffix may different with each other like mp4,avi,rmvb.	
+contributor	enum	NO		NULL		
+audio_detail_id	int	YES		NULL		
+video_detail_id	int	YES		NULL		
+optimum_type	enum	YES		NULL	better type of audio or video which has better quality	
+confirm_by	smallint	YES		NULL	user id of the person who did the video match confirm	
+confirm_at	timestamp	NO		0000-00-00 00:00:00	timestamp the confirmation is done	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+
+matchedVideoP2PDetail
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	PRI	NULL	id from company table	
+matchedVideoP2P_id	int	NO	MUL	NULL		
+seedResource_id	int	NO		NULL		
+instance_uuid	char	NO			from vddb	
+track_type	enum	NO		Video		
+track_id	tinyint	NO		0	track number	
+score	tinyint	YES		NULL	audio or video score	
+meta_offset	mediumint	YES		NULL		
+clip_offset	mediumint	YES		NULL		
+matched_duration	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+
+matchedVideoP2PItem
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+matchedVideo_id	int	NO	MUL	NULL	matchedVideoSequence id	
+company_id	smallint	NO	PRI	NULL	reference to id of company table	
+country_id	tinyint	YES		0		
+isp_id	mediumint	NO	MUL	NULL		
+download_count	int	NO		0	times the video clip has been viewed on the website	
+zero_download_num	int	NO		0		
+isp_name	varchar	YES		NULL	poster name	
+count_send_notice	int	NO		0		
+is_stop_send	enum	YES		false	true means stop send notice	
+stop_by	smallint	YES		NULL		
+stop_at	timestamp	NO		0000-00-00 00:00:00		
+first_send_notice_date	timestamp	NO		0000-00-00 00:00:00	first timestamp takedown notice send	
+last_send_notice_date	timestamp	NO		0000-00-00 00:00:00	last timestamp takedown notice send	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+matchedVideoPending
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		
+company_id	smallint	NO	PRI	NULL	reference to id of company table	
+trackingMeta_id	mediumint	NO	MUL	NULL	reference to id of trackingMeta table	
+trackingWebsite_id	smallint	NO		NULL		
+key_id	varchar	NO	MUL	NULL	use to represent image_path and animation_path	
+relationGroup_id	int	YES		NULL	id from relationGroup table	
+view_count	mediumint	NO		0	times the video clip has been viewed on the website	
+poster	varchar	YES	MUL	NULL	poster name	
+post_date	timestamp	NO	MUL	0000-00-00 00:00:00		
+relationGroup_status	enum	YES		NULL	status of relationGroup	
+confirm_status	enum	YES		none		
+file_type	enum	NO		unknown		
+is_contentRule_applied	enum	NO		false	flag for if the content rule is applied to the video clip	
+is_snapshot_generated	enum	NO		false	is exist webshot	
+is_hold_for_review	enum	NO		false		
+is_in_takedown_queue	enum	NO		false		
+is_media_file_exist	enum	NO		false		
+in_takedown_queue_date	timestamp	NO		0000-00-00 00:00:00		
+count_send_notice	int	YES		0	if the takedown has been sent count_send_notice will be added by 1	
+first_send_notice_date	timestamp	NO		0000-00-00 00:00:00	first timestamp takedown notice send	
+last_send_notice_date	timestamp	NO		0000-00-00 00:00:00	last timestamp takedown notice send	
+notice_send_by	smallint	YES		NULL		
+takeoff_time	timestamp	NO		0000-00-00 00:00:00		
+content_type	enum	NO		NULL	currently we support three types 'Movie', 'TV', 'Music'	
+content_sub_type	enum	YES		NULL		
+takeoff_type	enum	NO		online	if it is audio, video or both offline	
+hide_flag	tinyint	NO		0	company classification key value	
+hide_by	smallint	YES		NULL	user id from user table	
+hide_date	timestamp	NO		0000-00-00 00:00:00	date the operation on this hide_flag	
+clip_duration	smallint	NO		NULL		
+download_duration	smallint	NO		0		
+clip_size	bigint	NO		0		
+clip_url_reverse	char	NO		NULL	reverse string of first 10 character of the clip url, used to indexing for url search indexing	
+clip_url	varchar	NO	MUL	NULL		
+download_url	varchar	YES		NULL		
+clip_title	varchar	YES		NULL	clip title	
+clip_offset	smallint	NO		NULL	offset on video clip where matched to meta begin	
+meta_offset	smallint	NO		NULL	Offset on meta where the video clip match begins	
+score_video	tinyint	YES		NULL	score of video	
+score_audio	tinyint	YES		NULL	score of audio	
+matched_duration	smallint	NO		0	matched clip duration of bigger number of duration_video and duration_audion 	
+matched_video_duration	smallint	NO		0	matched clip video duration	
+matched_audio_duration	smallint	NO		0	matched clip audio duration	
+verification	enum	NO		vdna		
+posterID_url	varchar	YES		NULL	url for posterID	
+matched_storage_domain	enum	YES		xcache.videodna.com		
+matched_storage_date	date	YES		NULL	use to represent image_path and animation_path	
+season_number	smallint	YES		NULL	season number from meta	
+episode_number	mediumint	YES		NULL	episode number from meta	
+instance_title	varchar	YES		NULL	matched instance title from vddb	
+instance_duration	smallint	YES		0		
+matchedFile_id	int	YES		0	for cyberlocker, if it is cyberlock match, then there is a collection Id	
+meta_uuid	char	NO		NULL	uuid from meta table	
+meta_title	varchar	NO		NULL	title from meta table	
+meta_duration	smallint	NO		NULL	duration of meta	
+vddb_title	varchar	NO		NULL	original title from VDDB, meta title may different from VDDB title since customer can modify the VDDB title. We keep this VDDB title so that we know a set of different meta title may come from the same VDDB tile	
+notes	varchar	YES		NULL	on web page, customer can input notice for the video clip	
+start_at	timestamp	NO		0000-00-00 00:00:00	tracking time started at	
+created_at	timestamp	NO	MUL	0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+contributor	enum	YES		NULL		
+is_poster_whitelist_filtered	enum	YES		false		
+
+matchedVideoPendingAudit
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+matchedVideo_id	int	NO	MUL	NULL	pending video id	
+user_id	smallint	NO		NULL	reference id of user table	
+audit_status	enum	NO		right	first audit status	
+confirm_status	enum	NO		pending	Pending match final confirm status	
+verification	enum	NO		vdna		
+confirm_at	timestamp	NO		0000-00-00 00:00:00	pending match last confirm to right or wrong time	
+created_at	timestamp	NO	MUL	0000-00-00 00:00:00	row create time	
+updated_at	timestamp	NO		CURRENT_TIMESTAMP	time will change when any column be modified	on update CURRENT_TIMESTAMP
+
+matchedVideoPendingAuditHis
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+matchedVideo_id	int	NO	MUL	NULL	pending video id	
+user_id	smallint	NO		NULL	reference id of user table	
+from_status	enum	NO		pending for review	confirm status change from which status	
+to_status	enum	NO		pending right	confirm status change to which status	
+created_at	timestamp	NO		0000-00-00 00:00:00	matchedVideo confirm status create at	
+updated_at	timestamp	NO		CURRENT_TIMESTAMP	matchedVideo Confirm status last time	on update CURRENT_TIMESTAMP
+
+matchedVideoPendingCollateral
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+matchedVideo_id	int	NO	PRI	NULL	id from matchedVideo table since it is the extension table of matchedVideo	
+company_id	smallint	NO	PRI	NULL	id from company table	
+key_id	varchar	YES		NULL	use to represent dna_path,media_path	
+matched_storage_date	date	YES		NULL	use to represent dna_path,media_path	
+matched_media_domain	enum	YES		xcache.videodna.com		
+matched_media_suffix	varchar	YES		NULL	media_path suffix may different with each other like mp4,avi,rmvb.	
+hybrid_download_url	varchar	YES		NULL		
+extra_download_url	text	YES		NULL	full download url	
+contributor	enum	NO		NULL	contributor of the matched video 	
+audio_detail_id	int	YES		NULL		
+video_detail_id	int	YES		NULL		
+text_match_keyword	varchar	YES		NULL		
+text_match_keyword_score	smallint	NO		0		
+optimum_type	enum	YES		NULL	better type of audio or video which has better quality	
+confirm_by	smallint	YES		NULL	user id of the person who did the video match confirm	
+confirm_at	timestamp	NO		0000-00-00 00:00:00	timestamp the confirmation is done	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+autoConfirmRule_id	int	YES		NULL		
+title_similarity	tinyint	YES		0		
+priority_type	enum	YES		NULL	1 is tier1 0 is tier2	
+seedResource_key_id	varchar	NO			seedResource key id.jpg,gif file stored in resource	
+
+matchedVideoPendingDetail
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	PRI	NULL	id from company table	
+matchedVideo_id	int	NO	MUL	NULL		
+instance_uuid	char	NO			from vddb	
+track_type	enum	NO		Video		
+track_id	tinyint	NO		0	track number	
+score	tinyint	YES		NULL	audio or video score	
+meta_offset	mediumint	YES		NULL		
+clip_offset	mediumint	YES		NULL		
+matched_duration	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+
+matchedVideoRedList
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	PRI	NULL		
+trackingMeta_id	mediumint	NO		NULL		
+trackingWebsite_id	int	YES		NULL		
+key_id	varchar	NO	MUL	NULL	use to represent image_path and animation_path,md5 for url	
+meta_title	varchar	NO		NULL	title from meta table	
+meta_uuid	char	NO		NULL	uuid from meta table	
+match_level	enum	NO		positive		
+matched_score	tinyint	YES		NULL	score of match	
+matched_storage_domain	enum	YES		NULL		
+matched_storage_date	date	YES		NULL	use to represent image_path and animation_path	
+takeoff_time	timestamp	NO		0000-00-00 00:00:00		
+is_in_takedown_queue	enum	NO		false		
+in_takedown_queue_date	timestamp	NO		0000-00-00 00:00:00		
+count_send_notice	tinyint	YES		0	if the takedown has been sent count_send_notice will be added by 1	
+first_send_notice_date	timestamp	NO		0000-00-00 00:00:00	first timestamp takedown notice send	
+last_send_notice_date	timestamp	NO		0000-00-00 00:00:00	last timestamp takedown notice send	
+notice_send_by	smallint	YES		NULL		
+content_type	enum	NO		NULL	currently we support three types 'Movie', 'TV', 'Music'	
+content_sub_type	enum	YES		NULL		
+takeoff_type	enum	NO		online	if it is audio, video or both offline	
+hide_flag	tinyint	NO		0	company classification key value	
+hide_by	smallint	YES		NULL	user id from user table	
+hide_date	timestamp	NO		0000-00-00 00:00:00	date the operation on this hide_flag	
+clip_duration	smallint	NO		NULL		
+clip_url	varchar	NO	MUL	NULL	found in google	
+clip_title	varchar	YES		NULL	clip title	
+season_number	smallint	YES		NULL	season number from meta	
+episode_number	mediumint	YES		NULL	episode number from meta	
+vddb_title	varchar	NO		NULL	original title from VDDB, meta title may different from VDDB title since customer can modify the VDDB title. We keep this VDDB title so that we know a set of different meta title may come from the same VDDB tile	
+created_at	timestamp	NO	MUL	0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+matchedVideoRedList_searchEngine
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+matchedVideoRedList_id	int	NO	MUL	NULL		
+company_id	smallint	NO		NULL		
+trackingWebsite_id	int	NO		NULL	searchEngine site type	
+is_in_takedown_queue	enum	NO		false		
+in_takedown_queue_date	timestamp	NO		0000-00-00 00:00:00		
+count_send_notice	tinyint	YES		0	if the takedown has been sent count_send_notice will be added by 1	
+first_send_notice_date	timestamp	NO		0000-00-00 00:00:00	first timestamp takedown notice send	
+last_send_notice_date	timestamp	NO		0000-00-00 00:00:00	last timestamp takedown notice send	
+notice_send_by	smallint	YES		NULL		
+takeoff_time	timestamp	NO		0000-00-00 00:00:00		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+matchedVideoSearchEngineNoticeSent
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+matchedVideo_id	int	NO	MUL	NULL		
+company_id	smallint	NO		NULL		
+trackingWebsite_id	int	NO		NULL	only google	
+matchedVideo_linkURL_id	int	YES		0		
+matchedFileItem_id	int	YES		0	for cyberlocker, if it is cyberlock match, then there is a collection Id	
+result_source	enum	NO		video		
+count_send_notice	tinyint	YES		0	if the takedown has been sent count_send_notice will be added by 1	
+first_send_notice_date	timestamp	NO		0000-00-00 00:00:00	first timestamp takedown notice send	
+last_send_notice_date	timestamp	NO		0000-00-00 00:00:00	last timestamp takedown notice send	
+notice_send_by	smallint	YES		NULL		
+takeoff_time	timestamp	NO		0000-00-00 00:00:00		
+created_at	timestamp	NO	MUL	0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+matchedVideoSequence
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+trackingWebsite_id	smallint	NO		NULL		
+key_id	varchar	NO	MUL	NULL		
+trackingMeta_id	mediumint	NO		NULL		
+company_id	int	NO		NULL		
+
+matchedVideoSequenceP2P
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+trackingWebsite_id	smallint	NO		NULL	p2p consider bt,emule as a website	
+key_id	varchar	NO	MUL	NULL	seed key id	
+trackingMeta_id	mediumint	NO		NULL		
+company_id	int	NO		NULL		
+isp_id	mediumint	NO		NULL		
+
+matchedVideoUpdateFlag
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+matchedVideo_id	int	NO	MUL	NULL	matchedVideoSequence id	
+company_id	smallint	NO		0		
+column_name	varchar	YES		NULL	column name	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+
+matchedVideoViewCountHis
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+matchedVideo_id	int	NO	PRI	NULL		
+company_id	smallint	NO	PRI	NULL		
+created_at	date	NO	PRI	NULL		
+view_count	int	YES		NULL		
+
+matchedVideo_ad
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+matchedVideo_id	int	NO	MUL	NULL		
+company_id	smallint	NO		NULL		
+trackingWebsite_id	int	NO		NULL	website type is adNetwork	
+sourceWebsite_id	int	NO		0		
+ad_keyid	char	NO		NULL	ad_url md5	
+matchedVideo_linkURL_id	int	NO		0		
+matchedFileItem_id	int	YES		0	for cyberlocker, if it is cyberlock match, then there is a collection Id	
+confirm_status	enum	NO		NULL		
+result_source	enum	NO		video		
+country_id	smallint	NO		NULL		
+ad_identify	varchar	YES		NULL		
+ad_url	varchar	NO		NULL		
+is_in_takedown_queue	enum	NO		false		
+in_takedown_queue_date	timestamp	NO		0000-00-00 00:00:00		
+count_send_notice	tinyint	YES		0	if the takedown has been sent count_send_notice will be added by 1	
+first_send_notice_date	timestamp	NO		0000-00-00 00:00:00	first timestamp takedown notice send	
+last_send_notice_date	timestamp	NO		0000-00-00 00:00:00	last timestamp takedown notice send	
+notice_send_by	smallint	YES		NULL		
+takeoff_time	timestamp	NO		0000-00-00 00:00:00		
+created_at	timestamp	NO	MUL	0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+matchedVideo_linkURL
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+matchedVideo_id	int	NO	MUL	NULL		
+company_id	smallint	NO	PRI	NULL		
+trackingWebsite_id	int	NO	MUL	NULL	linksite type website	
+link_keyid	varchar	NO		NULL	link_url md5	
+confirm_status	enum	NO		NULL		
+link_url	varchar	NO		NULL		
+is_in_takedown_queue	enum	NO		false		
+in_takedown_queue_date	timestamp	NO		0000-00-00 00:00:00		
+count_send_notice	tinyint	YES		0	if the takedown has been sent count_send_notice will be added by 1	
+first_send_notice_date	timestamp	NO		0000-00-00 00:00:00	first timestamp takedown notice send	
+last_send_notice_date	timestamp	NO		0000-00-00 00:00:00	last timestamp takedown notice send	
+notice_send_by	smallint	YES		NULL		
+takeoff_time	timestamp	NO		0000-00-00 00:00:00		
+created_at	timestamp	NO	MUL	0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+matchedVideo_linkURL_matchedFileItem
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+matchedVideo_linkURL_id	int	NO	MUL	NULL		
+matchedFileItem_id	int	YES		0		
+takeoff_time	timestamp	NO		0000-00-00 00:00:00		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+matchedVideo_matchedVideoP2P
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+matchedVideo_id	int	NO	PRI	NULL		
+matchedVideoP2P_id	int	NO	PRI	NULL		
+
+matchedVideo_redo_snapshot_20140312
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO		NULL	matchedVideoSequence id	
+company_id	smallint	NO		NULL	reference to id of company table	
+trackingMeta_id	mediumint	NO		NULL	reference to id of trackingMeta table	
+trackingWebsite_id	smallint	NO		NULL		
+key_id	varchar	NO		NULL	use to represent image_path and animation_path	
+relationGroup_id	int	YES		NULL	id from relationGroup table	
+view_count	mediumint	NO		0	times the video clip has been viewed on the website	
+poster	varchar	YES		NULL	poster name	
+post_date	timestamp	NO		0000-00-00 00:00:00		
+relationGroup_status	enum	YES		NULL	status of relationGroup	
+is_contentRule_applied	enum	NO		false	flag for if the content rule is applied to the video clip	
+is_snapshot_generated	enum	NO		false	is exist webshot	
+is_in_takedown_queue	enum	NO		false		
+is_media_file_exist	enum	NO		false		
+in_takedown_queue_date	timestamp	NO		0000-00-00 00:00:00		
+count_send_notice	int	YES		0	if the takedown has been sent count_send_notice will be added by 1	
+first_send_notice_date	timestamp	NO		0000-00-00 00:00:00	first timestamp takedown notice send	
+last_send_notice_date	timestamp	NO		0000-00-00 00:00:00	last timestamp takedown notice send	
+notice_send_by	smallint	YES		NULL		
+takeoff_time	timestamp	NO		0000-00-00 00:00:00		
+content_type	enum	NO		NULL	currently we support three types 'Movie', 'TV', 'Music'	
+content_sub_type	enum	YES		NULL		
+takeoff_type	enum	NO		online	if it is audio, video or both offline	
+hide_flag	tinyint	NO		0	company classification key value	
+hide_by	smallint	YES		NULL	user id from user table	
+hide_date	timestamp	NO		0000-00-00 00:00:00	date the operation on this hide_flag	
+clip_duration	smallint	NO		NULL		
+clip_size	bigint	NO		0		
+clip_url_reverse	char	NO		NULL	reverse string of first 10 character of the clip url, used to indexing for url search indexing	
+clip_url	varchar	NO		NULL		
+download_url	varchar	YES		NULL		
+clip_title	varchar	YES		NULL	clip title	
+clip_offset	smallint	NO		NULL	offset on video clip where matched to meta begin	
+meta_offset	smallint	NO		NULL	Offset on meta where the video clip match begins	
+score_video	tinyint	YES		NULL	score of video	
+score_audio	tinyint	YES		NULL	score of audio	
+matched_duration	smallint	NO		0	matched clip duration of bigger number of duration_video and duration_audion 	
+matched_video_duration	smallint	NO		0	matched clip video duration	
+matched_audio_duration	smallint	NO		0	matched clip audio duration	
+verification	enum	NO		vdna	version 2.1 for certification if it is verified manually, or by QE or not verified	
+posterID_url	varchar	YES		NULL	url for posterID	
+matched_storage_domain	enum	YES		xcache.videodna.com		
+matched_storage_date	date	YES		NULL	use to represent image_path and animation_path	
+season_number	smallint	YES		NULL	season number from meta	
+episode_number	mediumint	YES		NULL	episode number from meta	
+instance_title	varchar	YES		NULL	matched instance title from vddb	
+instance_duration	smallint	YES		0		
+matchedFile_id	int	YES		0	for cyberlocker, if it is cyberlock match, then there is a collection Id	
+meta_uuid	char	NO		NULL	uuid from meta table	
+meta_title	varchar	NO		NULL	title from meta table	
+meta_duration	smallint	NO		NULL	duration of meta	
+vddb_title	varchar	NO		NULL	original title from VDDB, meta title may different from VDDB title since customer can modify the VDDB title. We keep this VDDB title so that we know a set of different meta title may come from the same VDDB tile	
+notes	varchar	YES		NULL	on web page, customer can input notice for the video clip	
+start_at	timestamp	NO		0000-00-00 00:00:00	tracking time started at	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+contributor	enum	YES		NULL		
+is_poster_whitelist_filtered	enum	YES		false		
+
+matchedVideo_searchEngine
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+matchedVideo_id	int	NO	MUL	NULL		
+company_id	smallint	NO	MUL	NULL		
+trackingWebsite_id	int	NO		NULL	searchEngine site type	
+matchedVideo_linkURL_id	int	YES		0		
+matchedFileItem_id	int	YES		0	for cyberlocker, if it is cyberlock match, then there is a collection Id	
+result_source	enum	NO		video		
+confirm_status	enum	NO		NULL		
+is_in_takedown_queue	enum	NO		false		
+in_takedown_queue_date	timestamp	NO		0000-00-00 00:00:00		
+count_send_notice	tinyint	YES		0	if the takedown has been sent count_send_notice will be added by 1	
+first_send_notice_date	timestamp	NO		0000-00-00 00:00:00	first timestamp takedown notice send	
+last_send_notice_date	timestamp	NO		0000-00-00 00:00:00	last timestamp takedown notice send	
+notice_send_by	smallint	YES		NULL		
+takeoff_time	timestamp	NO		0000-00-00 00:00:00		
+created_at	timestamp	NO	MUL	0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+metaCountryBlacklist
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+meta_id	int	NO		NULL		
+country_id	smallint	NO		NULL		
+created_by	smallint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	NO		0		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+metaExtraInfo
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+meta_id	mediumint	NO	PRI	NULL		
+company_id	smallint	NO	PRI	NULL		
+subCompany_id	smallint	NO		NULL		
+is_subscription	enum	YES		false	标志是否是订阅出来的meta	
+display_name	varchar	YES		NULL		
+priority_type	enum	YES		tier 1	1 is tier1 0 is tier2	
+is_deleted	enum	YES	MUL	false		
+is_need_confirm	enum	YES		false		
+is_hybrid_need_confirm	enum	YES		true		
+trackingSetting_id	smallint	NO		0		
+contentRule_id	smallint	NO		NULL		
+alertRule_id	int	NO		NULL		
+is_filter_postdate_enabled	enum	YES		false		
+start_at	timestamp	NO		0000-00-00 00:00:00		
+stop_at	timestamp	NO		0000-00-00 00:00:00		
+published_date	datetime	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+created_by	smallint	NO		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+updated_by	smallint	NO		NULL		
+
+metaP2PComplianceReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+meta_id	int	NO	MUL	NULL		
+company_id	smallint	NO	PRI	NULL		
+country_id	tinyint	NO		NULL		
+protocol	enum	NO		NULL	protocol	
+detected_ip_num	int	NO		0		
+zero_download_ip_num	int	NO		0		
+infringer_ip_num	int	NO		0		
+one_notice_ip_num	int	NO		0		
+two_notice_ip_num	int	NO		0		
+three_notice_ip_num	int	NO		0		
+created_by	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	YES		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+metaSiteReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+trackingMeta_id	int	NO	MUL	NULL		
+trackingWebsite_id	smallint	NO		NULL		
+company_id	smallint	NO		NULL		
+match_num	int	NO		NULL		
+infring_num	int	NO		NULL		
+view_num	bigint	NO		NULL		
+match_duration	bigint	NO		NULL		
+last_match_at	timestamp	NO		0000-00-00 00:00:00		
+takedown_match_num	int	NO		NULL		
+removed_num	int	NO		NULL		
+pending_review_num	int	NO		NULL		
+takedown_view_num	bigint	NO		NULL		
+takedown_infring_num	int	NO		NULL		
+takedown_infring_view_num	bigint	NO		NULL		
+takedown_removed_num	int	NO		NULL		
+takedown_total_clip_duration	int	NO		NULL		
+takedown_total_takeoff_response_time	bigint	NO		0		
+takedown_total_takeoff_num	int	NO		NULL		
+whitelist_match_num	int	NO		NULL		
+whitelist_view_num	bigint	NO		NULL		
+whitelist_total_clip_duration	int	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+metaWebsiteFoundDateReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+meta_id	mediumint	NO	PRI	NULL		
+company_id	smallint	NO	PRI	NULL		
+trackingWebsite_id	smallint	NO	PRI	NULL		
+report_date	date	NO	PRI	NULL	only record monthly	
+cumulative_match_num	int	NO		NULL		
+cumulative_view_count	int	NO		NULL		
+infring_match_num	int	NO		NULL		
+infring_view_count	int	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+total_takeoff_response_time	bigint	NO		0		
+total_takeoff_num	int	NO		0		
+takedown_sent_num	int	NO		NULL		
+removed_num	int	NO		NULL		
+
+metaWebsitePostDateReport
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+meta_id	mediumint	NO	PRI	NULL		
+company_id	smallint	NO	PRI	NULL		
+trackingWebsite_id	smallint	NO	PRI	NULL		
+report_date	date	NO	PRI	NULL	only record monthly	
+cumulative_match_num	int	NO		NULL		
+cumulative_view_count	int	NO		NULL		
+infring_match_num	int	NO		NULL		
+infring_view_count	int	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+total_takeoff_response_time	bigint	NO		0		
+total_takeoff_num	int	NO		0		
+takedown_sent_num	int	NO		NULL		
+removed_num	int	NO		NULL		
+
+metakeyword
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+tracking_meta_id	int	YES		NULL		
+company_id	int	NO		NULL		
+keyword	varchar	YES		NULL		
+contributor	tinyint	YES		1	1: Keywords generated by system 2:Keywords defined by customer 3:Keywords defined by operators	
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+module
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+name	varchar	YES		NULL		
+vt_flag	tinyint	YES		NULL		
+user_flag	tinyint	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+orderxh	int	YES		NULL		
+
+multipartTask
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+matchedVideo_id	int	NO	MUL	0		
+company_id	smallint	NO		NULL	reference to id of company table	
+trackingMeta_id	int	NO		0		
+trackingWebsite_id	int	NO		0		
+poster	varchar	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+notice
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	YES		NULL		
+title	varchar	YES		NULL		
+content	text	YES		NULL		
+startdate	date	YES		NULL		
+enddate	date	YES		NULL		
+delete_flag	tinyint	YES		0	0:undeleted,1:deleted	
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+operation
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+module_id	int	YES		NULL		
+name	varchar	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+p2pCountryStat
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL	reference to id of company table	
+country_id	smallint	NO		NULL	reference to id of country table	
+report_at	date	NO		0000-00-00		
+send_notice_num	int	YES		0	if the takedown has been sent count_send_notice will be added by 1	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+p2pIspStat
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL	reference to id of company table	
+isp_id	mediumint	NO		NULL	reference to id of isp table	
+report_at	date	NO		0000-00-00		
+send_notice_num	int	YES		0	if the takedown has been sent count_send_notice will be added by 1	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+p2pMetaCountryStat
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL	reference to id of company table	
+meta_id	mediumint	NO		NULL	reference to id of trackingMeta table	
+country_id	smallint	NO		NULL	reference to id of country table	
+report_at	date	NO		0000-00-00		
+send_notice_num	int	YES		0	if the takedown has been sent count_send_notice will be added by 1	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+p2pMetaIspStat
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL	reference to id of company table	
+meta_id	mediumint	NO		NULL	reference to id of trackingMeta table	
+isp_id	mediumint	NO		NULL	reference to id of isp table	
+report_at	date	NO		0000-00-00		
+send_notice_num	int	YES		0	if the takedown has been sent count_send_notice will be added by 1	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+p2pMetaProtocolStat
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL	reference to id of company table	
+meta_id	mediumint	NO		NULL	reference to id of trackingMeta table	
+protocol	enum	NO		NULL		
+report_at	date	NO		0000-00-00		
+send_notice_num	int	YES		0	if the takedown has been sent count_send_notice will be added by 1	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+posterBlacklist
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	0		
+trackingWebsite_id	int	NO		0		
+poster	varchar	NO				
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+poster_update_20140416
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO		NULL		
+key_id	varchar	NO	MUL	NULL	key id from tracking website	
+trackingWebsite_id	smallint	NO		NULL	tracking website id	
+nick_name	varchar	NO		NULL	poster's nick which can be modified by poster.	
+profile_url	varchar	NO		NULL	url of the poster profile main page	
+website_name	varchar	YES		NULL		
+
+poster_whitelist
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	NO	MUL	NULL		
+tracking_website_id	int	NO		NULL		
+poster	varchar	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+processControl
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL	reference to id of company table	
+model_key_id	varchar	NO		NULL		
+model_name	varchar	NO		NULL		
+status	enum	NO		new		
+run_at	timestamp	NO		0000-00-00 00:00:00		
+type	enum	NO		interval		
+interval_sec	int	NO		0		
+crontrigger	varchar	YES		NULL		
+is_task_compensation	enum	NO		false		
+task_setting	varchar	NO				
+start_at	timestamp	NO		0000-00-00 00:00:00		
+finished_at	timestamp	NO		0000-00-00 00:00:00		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+relation_group_items
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+relation_group_id	int	YES	MUL	NULL		
+tracking_relation_id	int	YES	MUL	NULL		
+is_new	tinyint	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+relation_groups
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+tracking_meta_id	int	YES	MUL	NULL		
+tracking_website_id	int	YES		NULL		
+company_id	int	NO		NULL		
+poster	varchar	YES	MUL	NULL		
+status	tinyint	YES		NULL	0: confirmed group, 1: unconfirmed group 2: confirmed ungroup 3: unconfirmed ungroup	
+clips_count	int	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+reportDailyDynamic
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	UNI	NULL		
+reviewed_match_count	int	NO		0		
+pending_match_count	int	NO		0		
+match_updated_at	timestamp	NO		0000-00-00 00:00:00		
+tier1_active_title_count	int	NO		0		
+tier2_active_title_count	int	NO		0		
+hostingSite_count	int	NO		0		
+ugc_notice_count	int	NO		0		
+cyberlocker_notice_count	int	NO		0		
+hybrid_notice_count	int	NO		0		
+linkingSite_notice_count	int	NO		0		
+p2p_notice_count	int	NO		0		
+music_notice_count	int	NO		0		
+premusite_notice_count	int	NO		0		
+searchEngine_notice_count	int	NO		0		
+ad_notice_count	int	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+
+reportMediawiseTitle
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingMeta_id	mediumint	NO		NULL	reference to id of trackingMeta table	
+vddb_title	varchar	NO		NULL	original title from VDDB	
+data_type	enum	NO		title		
+mediawise_match_count	int	NO		0	mediawise match number of last year	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+reportRecentAddTitle
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingMeta_id	mediumint	NO		NULL	reference to id of trackingMeta table	
+meta_title	varchar	NO		NULL	original title from meta	
+match_count	int	NO		0		
+start_at	timestamp	NO		0000-00-00 00:00:00	start_at of metaExtraInfo	
+meta_created_at	timestamp	NO		0000-00-00 00:00:00	create time of metaExtraInfo	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+reportSite
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+trackingWebsite_id	int	NO		NULL		
+display_name	varchar	NO		NULL		
+website_type	enum	NO		hostingSite		
+match_number	int	NO		0	match number of last year	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+reportTitle
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+meta_title	varchar	NO		NULL	original title from VDDB	
+content_type	enum	NO		TV		
+data_type	enum	NO		title		
+match_count	int	NO		0	match number of last year	
+view_count	bigint	NO		0	view number of last year	
+notice_count	int	NO		0	notice number of last year	
+notice_match_count	int	NO		0	send notice match number of last year	
+takeoff_match_count	int	NO		0	takeoff match number of last year	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+reportWeeklyMatch
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+start_date_of_week	timestamp	NO		0000-00-00 00:00:00		
+end_date_of_week	timestamp	NO		0000-00-00 00:00:00		
+match_count	int	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+role
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+name	varchar	YES		NULL		
+flag	tinyint	YES		NULL		
+is_levelone_user	enum	NO		false		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+rolePriv
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+role_id	smallint	NO	PRI	NULL		
+operation_id	smallint	NO	PRI	NULL		
+created_by	smallint	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	NO		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+roleTrackingList
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+company_id	smallint	NO	PRI	NULL		
+role_id	smallint	NO	PRI	NULL		
+trackingList_id	smallint	NO	PRI	NULL		
+
+role_rights
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+role_id	int	YES	MUL	NULL		
+module_id	int	YES		NULL		
+operation_id	int	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+saved_queries
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+user_id	int	YES	MUL	NULL		
+name	varchar	YES		NULL		
+query_key	varchar	NO		NULL		
+title	varchar	YES		NULL		
+query_type	enum	NO		Tracking List		
+season_number	varchar	YES		NULL		
+episode_number	varchar	YES		NULL		
+
+searchEngineReports
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL	searchEngineReports id	auto_increment
+company_id	smallint	NO	MUL	NULL	reference to id of company table	
+trackingWebsite_id	smallint	NO		NULL		
+created_at	date	NO		0000-00-00		
+numOfMatches	int	YES		0		
+numOfMatchesSent	int	YES		0		
+numOfMatchesSentRemoved	int	YES		0		
+numOfNotFoundMatchesSent	int	YES		0		
+
+seedURL
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL	primary key	auto_increment
+protocol_hash	varchar	NO	MUL	NULL	torrent,edonky hash	
+protocol	enum	NO		NULL	protocol	
+key_id	char	NO	UNI	NULL	md5_sum of seed url	
+seed_url	varchar	NO		NULL		
+link_url	varchar	YES		NULL	link url	
+title	varchar	YES		NULL		
+post_at	date	YES		NULL		
+poster	varchar	YES		NULL	seed poster	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+setting
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+smtpserver	varchar	YES		NULL		
+smtpuser	varchar	YES		NULL		
+smtppassword	varchar	YES		NULL		
+emaillink	varchar	YES		NULL		
+userid	int	YES		NULL		
+created	datetime	YES		NULL		
+
+subAccount
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	smallint	NO	PRI	NULL		auto_increment
+company_id	smallint	NO		NULL		
+category	enum	YES		NULL		
+name	varchar	NO		NULL		
+first_name	varchar	YES		NULL		
+last_name	varchar	YES		NULL		
+card_type	enum	YES		NULL		
+other_card_type	varchar	YES		NULL		
+card_id	varchar	YES		NULL		
+address	varchar	YES		NULL		
+postal_code	varchar	YES		NULL		
+email	varchar	YES		NULL		
+registration_authority	varchar	YES		NULL		
+title	varchar	YES		NULL		
+company_name	varchar	YES		NULL		
+phone	varchar	YES		NULL		
+agent_first_name	varchar	YES		NULL		
+agent_last_name	varchar	YES		NULL		
+agent_card_type	enum	YES		NULL		
+agent_other_card_type	varchar	YES		NULL		
+agent_card_id	varchar	YES		NULL		
+agent_registration_authority	varchar	YES		NULL		
+agent_title	varchar	YES		NULL		
+agent_company	varchar	YES		NULL		
+agent_address	varchar	YES		NULL		
+agent_postal_code	varchar	YES		NULL		
+agent_email	varchar	YES		NULL		
+agent_phone	varchar	YES		NULL		
+created_by	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	YES		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+subAccountTrackingList
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+subAccount_id	smallint	NO	PRI	NULL		
+trackingList_id	smallint	NO	PRI	NULL		
+
+subAccountTrackingWebsiteSetting
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+subAccount_id	smallint	NO	PRI	NULL		
+trackingWebsiteSetting_id	smallint	NO	PRI	NULL		
+mailList_id	smallint	NO		NULL		
+emailTemplate_id	smallint	NO		NULL		
+
+submit_non_native_sites
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	YES	MUL	NULL		
+url	varchar	YES	MUL	NULL		
+tracking_website_id	int	YES	MUL	NULL		
+tracking_meta_id	int	YES		NULL		
+tracking_video_id	int	YES		NULL		
+tracking_relation_id	int	YES	MUL	NULL		
+clip_title	varchar	YES	MUL	NULL		
+poster_id	varchar	YES		NULL		
+poster_id_url	varchar	YES		NULL		
+post_date	datetime	YES		NULL		
+source_file_location	varchar	YES		NULL		
+verification	enum	YES		manual		
+status	tinyint	YES		0		
+contributor	varchar	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES	MUL	NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+subscription
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+subscription_name	varchar	NO		NULL		
+is_sub_account	enum	YES		false		
+subscription_type	enum	NO		NULL	whether subscription according to the conditions or by meta 	
+company_id	smallint	NO		NULL	reference to id of company table	
+subscription_websites	varchar	NO		NULL	Monitoring sites, Separate multiple sites by commas,eg:1,2,3 	
+subscription_match_statuses	varchar	NO		NULL	Match status, Separate multiple statuses by commas ,eg:active,requested	
+created_by	int	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	int	NO		0		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+
+subscriptionCompany
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+subscription_id	smallint	NO	PRI	NULL		
+company_id	smallint	NO	PRI	NULL	reference to id of company table	
+parent_company_id	smallint	NO		0		
+tracking_statuses	varchar	NO		NULL	tracking meta status, Separate multiple statuses by commas,eg:active,removed	
+created_by	int	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	int	NO		0		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+
+subscriptionMeta
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+subscription_id	smallint	NO	PRI	NULL		
+meta_id	mediumint	NO		NULL	reference to id of company table	
+meta_uuid	char	NO	PRI	NULL	reference to id of trackingMeta table	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+created_by	smallint	NO		0		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	NO		0		
+
+syncTimeStat
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+module_name	varchar	NO	UNI	NULL		
+last_sync_time	timestamp	NO		0000-00-00 00:00:00		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+takedownNotice
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	mediumint	NO	PRI	NULL		auto_increment
+group_id	mediumint	YES		NULL		
+company_id	smallint	NO	PRI	NULL	takedown sent belong to which company	
+subAccount_id	smallint	NO		0		
+trackingWebsite_id	int	NO		0		
+isp_id	smallint	NO		-1		
+notice_status	enum	YES		NULL		
+emailTemplate_id	smallint	NO		NULL		
+mailList_id	smallint	NO		NULL		
+created_by	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+send_by	smallint	YES		NULL	reference to user table id	
+send_at	timestamp	NO		0000-00-00 00:00:00		
+notice_uuid	char	YES		NULL	uuid generated when mail sent	
+
+takedownNoticeIdSequence
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+
+takedownNoticeItem
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	mediumint	NO	PRI	NULL		auto_increment
+parent_id	int	NO		0		
+company_id	smallint	NO	PRI	NULL		
+takedownNotice_id	mediumint	NO	MUL	NULL	reference to takedown notice table	
+matchedVideo_id	int	NO	MUL	NULL	reference to matchedVideo table	
+is_stop_resending	enum	NO		false		
+notice_send_count	int	NO		1		
+created_by	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	YES		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+is_snapshot_generated	enum	NO		false	is exist webshot	
+
+takedownNoticeItemP2P
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	NO	PRI	NULL		
+takedownNoticeP2P_id	int	NO	MUL	NULL		
+matchedVideoP2P_id	int	NO	MUL	NULL		
+meta_id	int	NO		NULL		
+country_id	tinyint	NO		NULL		
+protocol	enum	NO		NULL	protocol	
+isp_id	int	NO		NULL		
+protocol_hash	varchar	YES		NULL		
+notice_send_count	int	NO		NULL		
+last_sync_at	timestamp	NO		0000-00-00 00:00:00		
+last_send_at	timestamp	NO		0000-00-00 00:00:00		
+created_by	smallint	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	NO		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+takedownNoticeItemP2PDetail
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	MUL	NULL		auto_increment
+matchedVideoP2PItem_id	int	NO	MUL	NULL		
+meta_id	int	NO		NULL		
+takedownNoticeItem_id	int	NO	PRI	NULL		
+IP	int	NO	PRI	NULL		
+port	smallint	YES		NULL	the port peer uses	
+url	varchar	YES		NULL	Tracker url for BT, ed2klink for ED	
+infringerID	varchar	YES		NULL	HighID|userhash or LowID|userhash for eDonkey, PeerId for bittorrent	
+company_id	smallint	NO	PRI	NULL		
+isp_id	int	NO		NULL		
+notice_send_count	tinyint	NO		NULL		
+first_notice_send_time	timestamp	NO		0000-00-00 00:00:00		
+second_notice_send_time	timestamp	NO		0000-00-00 00:00:00		
+third_notice_send_time	timestamp	NO		0000-00-00 00:00:00		
+recent_notice_send_time	timestamp	NO		0000-00-00 00:00:00		
+peer_found_created_at	timestamp	NO		0000-00-00 00:00:00		
+peer_found_updated_at	timestamp	NO		0000-00-00 00:00:00		
+created_by	smallint	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	NO		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+task_status	enum	YES		new	status of adding sending task	
+submitted_at	timestamp	NO		0000-00-00 00:00:00	date and time of submitted time	
+trackingWebsite_id	int	NO		NULL	p2p protocal	
+
+takedownNoticeItemRedList
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	PRI	NULL		
+takedownNoticeRedList_id	mediumint	NO	MUL	NULL	reference to takedown notice table	
+matchedVideoRedList_id	int	NO	MUL	NULL	reference to matchedVideo table	
+created_by	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	YES		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+takedownNoticeItem_bak
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	mediumint	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	PRI	NULL		
+takedownNotice_id	mediumint	NO	MUL	NULL	reference to takedown notice table	
+matchedVideo_id	int	NO	MUL	NULL	reference to matchedVideo table	
+is_stop_resending	enum	NO		false		
+created_by	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	YES		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+is_snapshot_generated	enum	NO		false	is exist webshot	
+
+takedownNoticeItem_old0819
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	mediumint	NO	PRI	NULL		auto_increment
+parent_id	int	NO		0		
+company_id	smallint	NO	PRI	NULL		
+takedownNotice_id	mediumint	NO	MUL	NULL	reference to takedown notice table	
+matchedVideo_id	int	NO	MUL	NULL	reference to matchedVideo table	
+is_stop_resending	enum	NO		false		
+notice_send_count	int	NO		1		
+created_by	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	YES		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+is_snapshot_generated	enum	NO		false	is exist webshot	
+
+takedownNoticeMailDetail
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+takedownNotice_id	mediumint	NO	PRI	NULL	reference to takedownNotice id	
+subject	varchar	NO		NULL	takedown notice email subject	
+to_email	varchar	YES		NULL	email address which takedown email send to	
+cc_email	varchar	YES		NULL		
+bcc_email	varchar	YES		NULL		
+reply_to_email	varchar	YES		NULL		
+content	mediumtext	YES		NULL		
+
+takedownNoticeMailDetailP2P
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+takedownNoticeItemP2PDetail_id	int	NO		NULL	refer to takedownNoticeItem id or takedownNoticeItemP2PDetail id base on refence_type	
+subject	varchar	NO		NULL	takedown notice email subject	
+to_email	varchar	YES		NULL	email address which takedown email send to	
+cc_email	varchar	YES		NULL		
+bcc_email	varchar	YES		NULL		
+reply_to_email	varchar	YES		NULL		
+content	mediumtext	YES		NULL		
+ref_file_url	varchar	YES		NULL	ref file on file server	
+
+takedownNoticeMailDetailRedList
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+takedownNoticeRedList_id	mediumint	NO	PRI	NULL	reference to takedownNotice id	
+subject	varchar	NO		NULL	takedown notice email subject	
+to_email	varchar	YES		NULL	email address which takedown email send to	
+cc_email	varchar	YES		NULL		
+bcc_email	varchar	YES		NULL		
+reply_to_email	varchar	YES		NULL		
+content	mediumtext	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+takedownNoticeMusic
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	mediumint	NO	PRI	NULL		auto_increment
+group_id	mediumint	YES		NULL		
+company_id	smallint	NO	PRI	NULL	takedown sent belong to which company	
+subAccount_id	smallint	NO		0		
+trackingWebsite_id	int	NO		0		
+notice_status	enum	YES		NULL		
+emailTemplate_id	smallint	NO		NULL		
+mailList_id	smallint	NO		NULL		
+created_by	smallint	YES		NULL		
+created_at	timestamp	NO	MUL	0000-00-00 00:00:00		
+send_by	smallint	YES		NULL	reference to user table id	
+send_at	timestamp	NO		0000-00-00 00:00:00		
+
+takedownNoticeMusicItem
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	mediumint	NO	PRI	NULL		auto_increment
+parent_id	int	NO		0		
+company_id	smallint	NO	PRI	NULL		
+takedownNoticeMusic_id	mediumint	NO	MUL	NULL	reference to takedown notice table	
+matchedMusic_id	int	NO	MUL	NULL	reference to matchedVideo table	
+is_stop_resending	enum	NO		false		
+notice_send_count	int	NO		1		
+created_by	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	YES		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+takedownNoticeMusicItem_old0819
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	mediumint	NO	PRI	NULL		auto_increment
+parent_id	int	NO		0		
+company_id	smallint	NO	PRI	NULL		
+takedownNoticeMusic_id	mediumint	NO	MUL	NULL	reference to takedown notice table	
+matchedMusic_id	int	NO	MUL	NULL	reference to matchedVideo table	
+is_stop_resending	enum	NO		false		
+notice_send_count	int	NO		1		
+created_by	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	YES		NULL		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+takedownNoticeMusicMailDetail
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+takedownNoticeMusic_id	mediumint	NO	PRI	NULL	reference to takedownNotice id	
+subject	varchar	NO		NULL	takedown notice email subject	
+to_email	varchar	YES		NULL	email address which takedown email send to	
+cc_email	varchar	YES		NULL		
+bcc_email	varchar	YES		NULL		
+reply_to_email	varchar	YES		NULL		
+content	mediumtext	YES		NULL		
+
+takedownNoticeMusicStat
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+takedownNoticeMusic_id	int	NO	PRI	NULL		
+company_id	smallint	NO	PRI	NULL		
+subAccount_id	smallint	NO		0		
+trackingWebsite_id	smallint	NO		0		
+first_send_notice_at	timestamp	NO		0000-00-00 00:00:00		
+last_send_notice_at	timestamp	NO		0000-00-00 00:00:00		
+notice_send_count	tinyint	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+takedownNoticeMusicUnique
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	0	reference to id of company table	
+subAccount_id	smallint	NO		0		
+trackingWebsite_id	int	NO		0		
+emailTemplate_id	int	NO		0		
+mailList_id	int	NO		0		
+notice_status	enum	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+takedownNoticeP2P
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	mediumint	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	PRI	NULL	takedown sent belong to which company	
+subAccount_id	smallint	NO		0		
+trackingWebsite_id	smallint	NO		NULL		
+isp_id	int	NO		NULL	isp id	
+notice_status	enum	YES		NULL		
+emailTemplate_id	smallint	NO		NULL		
+mailList_id	smallint	NO		NULL		
+created_by	smallint	YES		NULL		
+created_at	timestamp	NO	MUL	0000-00-00 00:00:00		
+send_by	smallint	YES		NULL	reference to user table id	
+send_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+takedownNoticeP2PAutoSendStat
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+company_id	int	NO	PRI	NULL		
+trackingWebsite_id	int	NO	PRI	NULL		
+isp_id	int	NO	PRI	NULL		
+last_send_notice_time	timestamp	NO		0000-00-00 00:00:00		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		0000-00-00 00:00:00		
+
+takedownNoticeP2PStat
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+takedownNoticeP2P_id	int	NO	PRI	NULL		
+company_id	smallint	NO	PRI	NULL		
+trackingWebsite_id	smallint	NO		NULL		
+first_send_notice_at	timestamp	NO		0000-00-00 00:00:00		
+last_send_notice_at	timestamp	NO		0000-00-00 00:00:00		
+notice_send_count	int	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+takedownNoticeRedList
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	PRI	NULL	takedown sent belong to which company	
+trackingWebsite_id	smallint	NO		0		
+notice_status	enum	YES		NULL		
+emailTemplate_id	smallint	NO		NULL		
+mailList_id	smallint	NO		NULL		
+created_by	smallint	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+send_by	smallint	YES		NULL	reference to user table id	
+send_at	timestamp	NO		0000-00-00 00:00:00		
+
+takedownNoticeRedListUnique
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	0	reference to id of company table	
+trackingWebsite_id	int	NO		0		
+emailTemplate_id	int	NO		0		
+mailList_id	int	NO		0		
+notice_status	enum	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+takedownNoticeStat
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+takedownNotice_id	int	NO	PRI	NULL		
+company_id	smallint	NO	PRI	NULL		
+subAccount_id	smallint	NO		0		
+reference_id	mediumint	NO		0		
+notice_type	enum	NO		website	if notice_type is website reference_id refer to website_id,isp refer to isp_id	
+first_send_notice_at	timestamp	NO		0000-00-00 00:00:00		
+last_send_notice_at	timestamp	NO	MUL	0000-00-00 00:00:00		
+notice_send_count	int	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+takedownNoticeStatRedList
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+takedownNoticeRedList_id	int	NO	PRI	NULL		
+company_id	smallint	NO	PRI	NULL		
+subAccount_id	smallint	NO		0		
+trackingWebsite_id	mediumint	NO		0		
+first_send_notice_at	timestamp	NO		0000-00-00 00:00:00		
+last_send_notice_at	timestamp	NO		0000-00-00 00:00:00		
+notice_send_count	int	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+takedownNoticeTask
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO		0		
+takedownNotice_id	int	NO	MUL	0		
+takedownNoticeMusic_id	int	NO		0		
+status	enum	NO		new		
+send_type	tinyint	NO		1		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+takedownNoticeUnique
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	0	reference to id of company table	
+subAccount_id	smallint	NO		0		
+trackingWebsite_id	int	NO		0		
+emailTemplate_id	int	NO		0		
+mailList_id	int	NO		0		
+notice_status	enum	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+takedown_notice_resend_setting
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	YES	MUL	NULL		
+tracking_website_id	int	YES		NULL		
+interval_minute	int	YES		NULL		
+max_resend_num	int	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+takedown_notice_send_setting
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	YES	MUL	NULL		
+trackingWebsite_id	int	YES		NULL		
+auto_sending_freq	int	YES		0		
+auto_resending_freq	int	YES		0		
+max_resend_num	int	YES		NULL		
+last_send_at	timestamp	NO		0000-00-00 00:00:00		
+last_resend_at	timestamp	NO		0000-00-00 00:00:00		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+takedown_notice_setting
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	YES	UNI	NULL		
+frequency_minute	int	NO		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+takedown_notice_setting_items
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+takedown_notice_setting_id	int	NO	PRI	NULL		
+tracking_website_id	int	NO	PRI	0		
+last_send_time	datetime	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+tempMusicUpdatenoticeSendCount20140627
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+item_id	int	NO	UNI	NULL		
+notice_send_count	int	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+tempMusicUpdateparentId20140627
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+item_id	int	NO	UNI	NULL		
+parent_id	int	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+tempUpdatenoticeSendCount20140627
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+item_id	int	NO	UNI	NULL		
+notice_send_count	int	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+tempUpdateparentId20140627
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+item_id	int	NO	UNI	NULL		
+parent_id	int	NO		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+timezone
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		
+timezone_id	varchar	NO		NULL		
+timezone_name	varchar	NO		NULL		
+
+tmp_addTakedown
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+takedownNotice_id	int	NO		NULL		
+notice_count	int	YES		NULL		
+stat_count	int	YES		NULL		
+last_send_notice_at	timestamp	NO		0000-00-00 00:00:00		
+auto_resending_freq	int	YES		NULL		
+
+tmp_deleteTakedownNotice_20141215
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	mediumint	NO		0		
+
+tmp_minmaxNotice_20141211
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+minTime	timestamp	YES		NULL		
+maxTime	timestamp	YES		NULL		
+matchedVideo_id	int	NO		NULL	reference to matchedVideo table	
+
+tmp_takedownItem_20141211
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+matchedVideo_id	int	NO		NULL	reference to matchedVideo table	
+num	bigint	NO		0		
+
+tmp_takedownNotice_20141215
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+takedownNotice_id	mediumint	NO		NULL	reference to takedown notice table	
+
+tmp_takedownNotice_20150320
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	mediumint	NO		0		
+
+tmptakedownNoticeItem0819
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+company_id	smallint	NO		NULL		
+takedownNotice_id	mediumint	NO		NULL	reference to takedown notice table	
+matchedVideo_id	int	NO		NULL	reference to matchedVideo table	
+parent_id	int	NO		0		
+itemId	mediumint	YES		NULL		
+num	bigint	NO		0		
+
+tmptakedownNoticeMusicItem0819
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+company_id	smallint	NO		NULL		
+parent_id	int	NO		0		
+takedownNoticeMusic_id	mediumint	NO		NULL	reference to takedown notice table	
+matchedMusic_id	int	NO		NULL	reference to matchedVideo table	
+itemId	mediumint	YES		NULL		
+num	bigint	NO		0		
+
+top_10_poster_per_site
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	YES	MUL	NULL		
+tracking_website_id	int	YES		NULL		
+poster	varchar	YES		NULL		
+classification_id	int	YES		NULL		
+cumulative_views	int	YES		NULL		
+cumulative_matches	int	YES		NULL		
+average_duration	int	YES		NULL		
+created	datetime	YES		NULL		
+updated	datetime	YES		NULL		
+
+trackingWebsiteExtraInfo
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+trackingWebsite_id	mediumint	NO	PRI	NULL		
+disney_domain	varchar	YES		NULL		
+page_view_num	int	NO		0		
+unique_user_num	int	NO		0		
+traffic_rank	smallint	NO		0		
+country_traffic_rank	smallint	NO		0		
+global_traffic	varchar	YES		NULL		
+is_support_autotakedown	enum	NO		false		
+is_retrieve_extra_download_url	enum	NO		false	where retry	
+use_posterID_as_whitelist	enum	NO		false		
+display_name	varchar	NO		NULL	website display name on web application	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+is_support_searchEngine_no_found_send	enum	NO		false		
+poster_blacklist_threshold	int	NO		0		
+
+trackingWebsiteForSpecialAccount
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+company_id	int	NO	PRI	NULL		
+tracking_website_id	int	NO	PRI	NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+tracking_list
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	YES	MUL	NULL		
+subAccount_id	smallint	NO		0		
+tracking_setting_id	int	YES		NULL		
+name	varchar	YES		NULL		
+flag	tinyint	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+levelOneUserFlag	tinyint	YES		0		
+
+tracking_listitem
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+tracking_list_id	int	YES	MUL	NULL		
+tracking_meta_id	int	YES	MUL	NULL		
+
+tracking_meta
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	YES	MUL	NULL		
+content_rule_id	int	YES		NULL		
+title	varchar	YES	MUL	NULL		
+owner	varchar	YES		NULL		
+studio	varchar	YES		NULL		
+duration	int	YES		NULL		
+releasedate	date	YES		NULL		
+uploaddate	datetime	YES		NULL		
+startdate	datetime	YES		NULL		
+keyword	text	YES		NULL		
+finished_date	datetime	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+published_time	datetime	YES		NULL		
+tracking_setting_id	int	YES		NULL		
+meta_uuid	char	YES	UNI	NULL		
+display_name	varchar	YES		NULL		
+priority_type	tinyint	YES		0		
+delete_flag	tinyint	YES		0		
+is_vddb_deleted	enum	NO		false		
+content_type	enum	NO		NULL		
+content_sub_type	enum	YES		NULL		
+customer_id	varchar	YES		NULL		
+season_number	smallint	YES		1	season number	
+episode_number	smallint	YES		NULL		
+episode_title	varchar	YES		NULL		
+tag	varchar	YES		NULL		
+cast	varchar	YES		NULL		
+director	varchar	YES		NULL		
+needConfirmFlag	tinyint	YES		0		
+alertRule_id	int	NO		NULL		
+is_filter_postdate_enabled	enum	NO		false		
+
+tracking_meta_cnts
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+tracking_meta_id	int	NO	PRI	0		
+company_id	int	NO	PRI	NULL		
+subAccount_id	smallint	NO	PRI	0		
+matches	int	YES		NULL		
+total_view_count	int	YES		NULL		
+total_match_duration	int	YES		NULL		
+last_matched_ts	datetime	YES		NULL		
+created	datetime	YES		NULL		
+updated	datetime	YES		NULL		
+
+tracking_meta_instance
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+tracking_meta_id	int	NO	PRI	0		
+uuid	char	NO	PRI			
+title	varchar	YES		NULL		
+length	int	YES		NULL		
+
+tracking_meta_setting
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+tracking_meta_id	int	NO	PRI	NULL		
+company_id	int	NO	PRI	NULL		
+tracking_website_id	int	NO	PRI	NULL		
+mailing_list_id	int	YES	MUL	NULL		
+email_template_id	int	YES	MUL	NULL		
+emailTemplateGroup_id	int	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+tracking_relation_sum_daily_hist
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+sum_date	date	NO	PRI	NULL		
+tracking_meta_id	int	NO	PRI	NULL		
+company_id	int	NO	PRI	NULL		
+tracking_website_id	int	NO	PRI	NULL		
+num_type	enum	NO	PRI	NULL		
+value	int	YES		NULL		
+
+tracking_setting
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO		NULL		
+name	varchar	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+tracking_setting_items
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+tracking_setting_id	int	YES	MUL	NULL		
+tracking_website_id	int	YES		NULL		
+tracking_level	tinyint	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+tracking_site_meta_cnts
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+tracking_website_id	int	NO	PRI	0		
+tracking_meta_id	int	NO	PRI	0		
+company_id	int	NO	MUL	NULL		
+matches	int	YES		NULL		
+total_view_count	int	YES		NULL		
+total_match_duration	int	YES		NULL		
+last_matched_ts	datetime	YES		NULL		
+takedown_sent_cnt	int	YES		NULL		
+removed_cnt	int	YES		NULL		
+pending_review_cnt	int	YES		NULL		
+created	datetime	YES		NULL		
+updated	datetime	YES		NULL		
+
+tracking_website
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+name	varchar	YES		NULL		
+country_code	char	YES		NULL		
+domain	varchar	YES		NULL		
+disney_domain	varchar	YES		NULL		
+homepage	varchar	YES		NULL		
+title	varchar	YES		NULL		
+x	varchar	YES		NULL		
+y	varchar	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+logo	varchar	YES		NULL		
+site_type	tinyint	YES		NULL		
+supportAutoTakedownFlag	tinyint	YES		0		
+time_zone	int	YES		28		
+
+tracking_website_cnts
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+company_id	int	NO	PRI	NULL		
+subAccount_id	smallint	NO	PRI	0		
+tracking_website_id	int	NO	PRI	NULL		
+total_matches	int	YES		NULL		
+matches24hr	int	YES		NULL		
+total_views	bigint	YES		NULL		
+views24hr	int	YES		NULL		
+created	datetime	YES		NULL		
+updated	datetime	YES		NULL		
+
+tracking_website_setting
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	YES	MUL	NULL		
+tracking_website_id	int	NO		0		
+isp_id	int	NO		-1		
+default_mailing_list_id	int	YES		NULL		
+default_email_template_id	int	YES		NULL		
+file_number	varchar	YES		NULL		
+address1	varchar	YES		NULL		
+address2	varchar	YES		NULL		
+city	varchar	YES		NULL		
+state	varchar	YES		NULL		
+postal_code	varchar	YES		NULL		
+country	varchar	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+urgent_list
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+tracking_meta_id	int	NO	MUL	NULL		
+company_id	int	NO		NULL		
+start_date	datetime	NO		NULL		
+expiring_date	datetime	NO		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+url_whitelist
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	YES	MUL	NULL		
+url	varchar	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+user
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	varchar	YES		NULL		
+subAccount_id	smallint	NO		0		
+name	varchar	YES		NULL		
+username	varchar	YES		NULL		
+password	varchar	YES		NULL		
+email	varchar	YES		NULL		
+first_name	varchar	YES		NULL		
+last_name	varchar	YES		NULL		
+display_name	varchar	YES		NULL		
+initials	varchar	YES		NULL		
+title	varchar	YES		NULL		
+phone	varchar	YES		NULL		
+fax	varchar	YES		NULL		
+company	varchar	YES		NULL		
+address1	varchar	YES		NULL		
+address2	varchar	YES		NULL		
+city	varchar	YES		NULL		
+state	varchar	YES		NULL		
+postal_code	varchar	YES		NULL		
+country	varchar	YES		NULL		
+signature	varchar	YES		NULL		
+time_zone	int	YES		28		
+daylight_savings	varchar	YES		NULL		
+hour_clock	varchar	YES		NULL		
+is_admin	tinyint	YES		NULL		
+description	text	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+last_visit_date	datetime	YES		NULL		
+infringing_flag	tinyint	YES		NULL		
+timeout_duration	int	YES		NULL		
+video_matches_display_mode	enum	YES		box view		
+delete_flag	tinyint	YES		0		
+password_retry_times	tinyint	YES		0		
+password_lock_time	datetime	YES		NULL		
+password_last_change_date	datetime	YES		NULL		
+is_page_adaption_applied	enum	NO		false		
+pagesize_for_video_matches	smallint	NO		20		
+
+userExtraInfo
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+user_id	smallint	NO	PRI	NULL		
+is_infringing	enum	YES		false	automatic change status of a clip to infringing when it is added to take down list	
+timeout_duration	mediumint	NO		60		
+is_page_adaption	enum	YES		false		
+matchedVideo_pagesize	int	NO		20		
+is_userTrackingList	enum	YES		false	Only allow this user to view the titles that are in the following selected tracking lists	
+is_userWebsite	enum	YES		false	Only allow this user to view the match results that are from the following selected sites	
+confirmVideo_num	int	YES		100		
+is_match_time_limited_prompted	enum	NO		true		
+created_by	smallint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_by	smallint	NO		0		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+last_visit_at	timestamp	NO		0000-00-00 00:00:00		
+
+userTrackingList
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+user_id	smallint	NO	PRI	NULL		
+trackingList_id	smallint	NO	PRI	NULL		
+
+userWebsite
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	smallint	NO	PRI	NULL		auto_increment
+user_id	smallint	NO	MUL	NULL		
+website_id	smallint	NO		NULL		
+
+user_notice
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+user_id	int	NO		NULL		
+notice_id	int	NO		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+user_roles
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+type	tinyint	YES		NULL		
+grant_user_id	int	YES		NULL		
+relation_id	int	YES		NULL		
+operation_id	int	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+user_setting
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+user_id	int	YES		NULL		
+module	varchar	YES		NULL		
+keyname	varchar	YES		NULL		
+keyvalue	varchar	YES		NULL		
+created_by	int	YES		NULL		
+created	datetime	YES		NULL		
+updated_by	int	YES		NULL		
+updated	datetime	YES		NULL		
+
+videoWebsiteStat
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL	reference to id of company table	
+rank	tinyint	YES		0		
+tv_meta_title	varchar	NO		NULL	title from meta table	
+movie_meta_title	varchar	NO		NULL	title from meta table	
+website_name	varchar	NO		NULL	title from trackingWebsite table	
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+website_additional_info
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	int	YES		NULL		
+tracking_website_id	int	YES		NULL		
+file_number	varchar	YES		NULL		
+address1	varchar	YES		NULL		
+address2	varchar	YES		NULL		
+city	varchar	YES		NULL		
+state	varchar	YES		NULL		
+postal_code	varchar	YES		NULL		
+country	varchar	YES		NULL		
+
+workingCommonTask
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO		NULL		
+task_name	varchar	YES	MUL	NULL		
+unique_key	char	NO		NULL		
+retrieval_field	varchar	YES	MUL	NULL		
+task_priority	enum	NO		normal		
+task_status	varchar	NO		NULL		
+retry_count	tinyint	NO		0		
+timeout	smallint	NO		NULL		
+extra_info	varchar	YES		NULL		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO	MUL	CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+workingSnapshotTask
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO		NULL		
+matchedVideo_id	int	NO	MUL	NULL		
+takedownNoticeItem_id	int	NO		0		
+is_ad	enum	NO		false	snapshot content is ad or not	
+task_priority	enum	NO		normal	task prioriy	
+task_status	enum	NO	MUL	created		
+retry_count	tinyint	NO		0		
+created_at	timestamp	NO	MUL	0000-00-00 00:00:00		
+started_at	timestamp	NO	MUL	0000-00-00 00:00:00		
+synced_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO		CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+workingStatusCheckTask
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO	PRI	NULL		auto_increment
+company_id	smallint	NO	MUL	NULL		
+matchedVideo_id	int	NO		0		
+matchedVideo_SearchEngine_id	int	NO		0		
+matchedVideo_linkURL_id	int	NO		0		
+matchedVideo_ad_id	int	NO		0		
+matchedFileItem_id	int	NO		0	id of matchedFileItem	
+source_type	enum	NO		redListSearchEngine	source type by url	
+task_status	enum	NO		NULL		
+retry_count	tinyint	NO		0		
+created_at	timestamp	NO		0000-00-00 00:00:00		
+started_at	timestamp	NO		0000-00-00 00:00:00		
+updated_at	timestamp	NO	MUL	CURRENT_TIMESTAMP		on update CURRENT_TIMESTAMP
+
+youjizz_poster_20140411
+COLUMN_NAME	DATA_TYPE	IS_NULLABLE	COLUMN_KEY	COLUMN_DEFAULT	COLUMN_COMMENT	EXTRA
+id	int	NO		NULL		
+key_id	varchar	NO		NULL	key id from tracking website	
+trackingWebsite_id	smallint	NO		NULL	tracking website id	
+nick_name	varchar	NO		NULL	poster's nick which can be modified by poster.	
+
