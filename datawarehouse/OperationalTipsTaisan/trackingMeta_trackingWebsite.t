@@ -1,1 +1,0 @@
-bq mk OperationalTipsTaisan.trackingMeta_trackingWebsite trackingMeta_id:integer,trackingWebsite_id:integer,created_at:timestamp

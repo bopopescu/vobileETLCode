@@ -1,1 +1,0 @@
-bq mk OperationalTipsTaisan.trackingMeta meta_id:integer,meta_type:string,company_id:integer,metaWeb:string,meta_title:string,meta_uuid:string,meta_priority:string,verification_type:string,text_filter_duration:integer,release_date:string,query_profile:string,created_at:timestamp,updated_at:timestamp

@@ -1,1 +1,0 @@
-id:integer,region:string,country_code:string,country_name:string,language_id:integer,national_flag:string,longitude:integer,latitude:integer,created_at:string,updated_at:string
