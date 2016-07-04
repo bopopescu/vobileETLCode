@@ -1,0 +1,98 @@
+#!/usr/bin/env python
+#coding:utf8
+#Date: 2016-03-14
+#Author: cwj
+#Desc: data from TitleBased to TitleBased1
+#
+
+
+from mysqlHelp import MySQLHelper
+import ConfigParser
+from parseConfig import CfgParser
+import sys
+import os
+import logging
+import time
+from titleBased import getConfMysqlInfo, getMinDatePara
+
+logger = logging.getLogger("titleBased_titleBased")
+logger.setLevel(logging.DEBUG)
+log_file = '/Job/VIACOM/Dashboard/TitleBasedStaging/log/titleBased_titleBased.log'
+filehandler = logging.handlers.RotatingFileHandler(filename=log_file, maxBytes=5*1024*1024, backupCount=10, mode='a')
+formatter = logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
+filehandler.setFormatter(formatter)
+logger.addHandler(filehandler)
+
+cfg_file = "/Job/VIACOM/Dashboard/TitleBasedStaging/conf/viacom_dashboard.cfg"
+if not os.path.exists(cfg_file):
+	logging.debug(": config file not exists") 
+	sys.exit(0)
+#################################################################################################################################
+target_server_section = "target_server_staging"
+target_host, target_user, target_passwd, target_port, target_db= getConfMysqlInfo(target_server_section)
+#################################################################################################################################
+
+##CMS data and reportedViews (UGC) from SelfService_Aggregate_ByNoticedDate aggregate to TitleBased1
+#--------------------------------------------------------------------------------------------------------------------------------
+logger.info(" aggregate data from TitleBased  to  TitleBased1  start")
+
+#date_para_TitleBased1_min = time.strftime("%Y-%m-%d", time.localtime(time.time()- (30+365) * 24 * 60 * 60))
+#date_para_TitleBased1_max = time.strftime("%Y-%m-%d", time.localtime(time.time()- 1 * 24 * 60 * 60))
+
+#date_para_TitleBased1_dict = {"date_para_TitleBased1_min":date_para_TitleBased1_min, "date_para_TitleBased1_max": date_para_TitleBased1_max}
+
+try:
+	target_mysql = MySQLHelper(host=target_host, user=target_user, passwd=target_passwd, 
+		db_name = target_db, port = target_port, charset = 'utf8')
+	aggregate_TitleBased1_SQL = """
+		select
+		  a.reportDate,
+		  a.trackingWebsite_id,
+		  a.websiteName,
+		  a.websiteType,
+		  ifnull(b.metaTitle, a.title) title,
+		  a.tier,
+		  sum(matchedNum) as matchedNum,
+		  sum(infringingNum) as infringingNum,
+		  sum(clipDurationSum) as clipDurationSum,
+		  current_timestamp as ETLDate
+		from 
+		  (select 
+		    a.reportDate,
+		    a.trackingWebsite_id,
+		    c.websiteName,
+		    c.websiteType,
+		    b.title,
+		    min(a.tier) tier,
+		    sum(matchedNum) as matchedNum,
+		    sum(infringingNum) as infringingNum,
+		    sum(clipDurationSum) as clipDurationSum,
+		    current_timestamp as ETLDate
+		  from TitleBased as a, TitleBasedMeta as b, TitleBasedTrackingWebsite as c
+		  where a.trackingWebsite_id = c.trackingWebsite_id
+		    and a.trackingMeta_id = b.trackingMeta_id
+		  group by 1, 2, 3, 4, 5) as a 
+		  left join MetaTitleMapTitle as b 
+		  on a. title = b.metaTitle 
+		  group by 1, 2, 3, 4, 5, 6
+	""" #%date_para_TitleBased1_dict
+
+	TitleBased1_result = target_mysql.queryCMD(aggregate_TitleBased1_SQL)
+
+	insert_TitleBased1_SQL = """
+		INSERT INTO TitleBased1 
+			(reportDate, trackingWebsite_id, websiteName, websiteType, title, tier,
+				matchedNum, infringingNum, clipDurationSum, ETLDate) 
+  		VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s) 
+  		ON DUPLICATE KEY UPDATE matchedNum = VALUES(matchedNum), clipDurationSum = VALUES(clipDurationSum),
+  			infringingNum = VALUES(infringingNum), ETLDate = VALUES(ETLDate)
+	"""
+	target_mysql.insertUpdateCMD(insert_TitleBased1_SQL, TitleBased1_result)
+	target_mysql.commit()
+except Exception, e:
+	logger.debug(": load data to TitleBased1, %s" %e)
+	sys.exit(0)
+finally:
+	target_mysql.closeCur()
+	target_mysql.closeConn()
+logger.info(" aggregate data from TitleBased  to  TitleBased1 end")

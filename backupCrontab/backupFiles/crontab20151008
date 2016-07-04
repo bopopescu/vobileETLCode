@@ -1,0 +1,66 @@
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+# 
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').# 
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+# 
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+# 
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+# 
+# For more information see the manual pages of crontab(5) and cron(8)
+# 
+# m h  dom mon dow   command
+
+#cwj JOB_NAME: DurationDistribution_Daily 
+30 8  * * * bash  /root/Job/DurationDistribution_Daily/DurationDistribution_Daily.sh
+
+#cwj cube 
+30 8 * * * bash /root/Job/SelfService_Aggregate_ByNoticedDate_Test/SelfService_Aggregate_ByNoticedDate_Test.sh
+
+#cwj google all url
+#36 7 9 * *  bash /root/script/test/sql.sh  2015-07-01 2015-08-01
+
+#cwj title site  monthly
+#30 9 2 * * bash /Job/VIACOM/cwj_viacom_job/moniteSelfService.sh
+
+#duli viacom PartialTitleMonthly 
+0 9 27 * * bash /Job/VIACOM/PartialTitleMonthly/PartialTitleMonthly.sh
+
+30 8 * * * bash /root/Job/Job_TrackingTitleDaily/Job_TrackingTitleDaily.sh
+0 9 * * * bash /root/script/p2pDaily/p2pDaily.sh
+0 14 * * * bash /Job/VIACOM/YouTube_Daily/YouTube_Daily.sh
+
+#monthly
+0 10 1 * * bash /root/Job/Job_SiteInfringementsMonthly/Job_SiteInfringementsMonthly.sh
+
+#monitor daily
+0 23 * * * python /root/script/monitorJob.py
+
+#sucong monthly
+#0 9 30 * * python /root/script/alexaSpider/spiderAlexa.py
+#0 8 1 * * bash /root/script/google/takeDownNum.sh
+
+#Fox Monthly
+0 9 1 * * bash /Job/FOX/Job_FoxMonthly_his/FoxMonthly.sh
+30 8 1 * * bash /Job/FOX/Job_Backup/FoxBackup.sh
+
+#Disney
+47 9 * * * bash /Job/DISNEY/Job_DisneySelfService/DisneySelfService.sh 
+
+# ManWin2 Daily sendMail
+10 9 * * * bash /Job/MANWIN2/ManWinDaily/ManWin2Daily.sh
+
+
+#cwj monthly
+#10 14 7 10 * bash /Job/VIACOM/cwj_viacom_job/viacom_monthly.sh
+
+#cwj crontab backup
+42 8 * * *  bash /Job/backupCrontab/backupCrontab.sh

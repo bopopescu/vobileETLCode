@@ -1,0 +1,10 @@
+#!/bin/bash
+
+yesterday=`date -d "2 days ago" +%Y-%m-%d`
+title="ISPBased_${yesterday}"
+LinesNum=(`mysql -h54.67.114.123 -ukettle -pkettle VIACOM_DASHBOARD -e "select count(1) as '' from ISPBased where dateID = '$yesterday' group by infringingFlag order by infringingFlag"`)
+content="ALL RowNum: ${LinesNum[0]}; Infringing RowNum: ${LinesNum[1]};"
+echo ${content}
+from="ISPBased Monitor"
+to="du_li@vobile.cn"
+echo "${content}"|mail -s "${title}" -t "${to}" -a From:"${from}"
