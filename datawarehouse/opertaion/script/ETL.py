@@ -4,7 +4,7 @@ import time
 import datetime
 
 #lowCompliantSitesNum /lowCompliantSitesPercent
-conn=MySQLdb.connect(host='eqx-vtweb-slave-db',user='kettle',passwd='k3UTLe',port=3306)
+conn=MySQLdb.connect(host='eqx-vtweb-subordinate-db',user='kettle',passwd='k3UTLe',port=3306)
 conn.select_db('tracker2')
 cur=conn.cursor()
 

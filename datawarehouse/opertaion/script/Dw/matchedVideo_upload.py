@@ -18,7 +18,7 @@ def upload_to_gs(db):
 	date = str(end - datetime.timedelta(days=i))
 	date1 = str(end - datetime.timedelta(days=i-1)) 
 	f = "matchedVideo%s.csv" %date.replace("-","")
-        cmd_csv = """mysql -heqx-vtweb-slave-db -ukettle -pk3UTLe tracker2 -e"select * from matchedVideo where created_at >= '%s' and created_at < '%s';" >> %s""" %(date, date1, f)
+        cmd_csv = """mysql -heqx-vtweb-subordinate-db -ukettle -pk3UTLe tracker2 -e"select * from matchedVideo where created_at >= '%s' and created_at < '%s';" >> %s""" %(date, date1, f)
         print cmd_csv
 	cmd_upload = "gsutil cp %s gs://vobile-data-analysis/OperationalMetrics/matchedVideo" %f
 	os.system(cmd_csv)

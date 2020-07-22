@@ -20,7 +20,7 @@ reporting_password = 'kettle'
 reporting_usedb = 'ONEPAGE_MONITOR'
 
 #eqx mediawise db
-db_wmw_host = 'eqx-mediawise-slave-db'
+db_wmw_host = 'eqx-mediawise-subordinate-db'
 db_wmw_user = 'kettle'
 db_wmw_password = 'k3UTLe'
 db_wmw_port = 3306

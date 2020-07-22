@@ -6,7 +6,7 @@ import time
 import datetime
 
 
-conn=MySQLdb.connect(host='eqx-vtweb-slave-db',user='kettle',passwd='k3UTLe',port=3306)
+conn=MySQLdb.connect(host='eqx-vtweb-subordinate-db',user='kettle',passwd='k3UTLe',port=3306)
 conn.select_db('tracker2')
 #Compliance% - UGC;Compliance Time - UGC
 

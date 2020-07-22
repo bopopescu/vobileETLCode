@@ -13,7 +13,7 @@ import StringIO
 
 
 #taisan Video
-conn=MySQLdb.connect(host='eqx-taisan-slave-db',user='kettle',passwd='k3UTLe',port=3306)
+conn=MySQLdb.connect(host='eqx-taisan-subordinate-db',user='kettle',passwd='k3UTLe',port=3306)
 conn.select_db('taisan')
 cur=conn.cursor()
 

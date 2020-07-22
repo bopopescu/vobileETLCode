@@ -5,7 +5,7 @@ import time
 from MySQLHelper import MySQLHelper
 
 
-tracker2_host = "eqx-vtweb-slave-db"
+tracker2_host = "eqx-vtweb-subordinate-db"
 tracker2_user = "kettle"
 tracker2_pass = "k3UTLe"
 tracker2_db = "tracker2"

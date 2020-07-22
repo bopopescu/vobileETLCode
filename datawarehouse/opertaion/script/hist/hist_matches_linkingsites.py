@@ -8,7 +8,7 @@ import datetime
 start = 0
 stop = 1
 #matches search Engine
-conn=MySQLdb.connect(host='eqx-vtweb-slave-db',user='kettle',passwd='k3UTLe',port=3306)
+conn=MySQLdb.connect(host='eqx-vtweb-subordinate-db',user='kettle',passwd='k3UTLe',port=3306)
 cur=conn.cursor()
 conn.select_db('tracker2') 
 

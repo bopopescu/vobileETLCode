@@ -35,7 +35,7 @@ def getInsightViews(start_date, end_date):
     logger.info(" extral data from Dashboard.matchedVideoViewCountCompletionAll start")
     date_dict  ={"start_date": start_date, "end_date": end_date}
     target_server_section = "target_server_staging"
-    insight_server_section = "insight_master"
+    insight_server_section = "insight_main"
     target_host, target_user, target_passwd, target_port, target_db = getConfMysqlInfo(target_server_section)
     insight_host, insight_user, insight_passwd, insight_port, insight_db = getConfMysqlInfo(insight_server_section)
     try:

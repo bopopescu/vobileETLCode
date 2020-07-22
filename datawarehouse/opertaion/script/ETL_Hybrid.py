@@ -29,7 +29,7 @@ conn.close()
 
 
 #matchedURLs / matches with notices sent
-conn=MySQLdb.connect(host='eqx-vtweb-slave-db',user='kettle',passwd='k3UTLe',port=3306)
+conn=MySQLdb.connect(host='eqx-vtweb-subordinate-db',user='kettle',passwd='k3UTLe',port=3306)
 conn.select_db('tracker2') 
 mtcur=conn.cursor()
 mtcur.execute('select b.website_type, date(a.created_at), count(a.id) Matched_URLs, sum(if(a.count_send_notice > 0,1,0)) send_Notics from matchedVideo a, mddb.trackingWebsite b where a.company_id = 14 and a.trackingWebsite_id = b.id and a.hide_flag = 2 and b.website_type in ("hybrid") and a.created_at >= "2016-03-01" and a.created_at < "2016-03-11" group by 1,2')
